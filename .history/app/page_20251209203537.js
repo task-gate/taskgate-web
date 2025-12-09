@@ -3,6 +3,7 @@
 import "./globals.css";
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, Eye, Heart, Zap } from "lucide-react";
 import AppStoreDownloadButton from "@/components/AppStoreDownloadButton";

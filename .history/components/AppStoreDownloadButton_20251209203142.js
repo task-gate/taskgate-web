@@ -45,7 +45,7 @@ const AppStoreDownloadButton = () => {
         alt="Download on the App Store"
         className="w-[150px] h-[45px]"
         width={150} // Adjust width as needed
-        height={10} // Adjust height as neede
+        height={50} // Adjust height as needed
       />
     </button>
   );

@@ -3,6 +3,7 @@
 import "./globals.css";
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, Eye, Heart, Zap } from "lucide-react";
 import AppStoreDownloadButton from "@/components/AppStoreDownloadButton";
@@ -94,6 +95,11 @@ export default function Home() {
             >
               <GooglePlayDownloadButton />
               <AppStoreDownloadButton />
+              <Link href="/about-us">
+                <button className="px-8 py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  Learn More
+                </button>
+              </Link>
             </motion.div>
           </div>
 

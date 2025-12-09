@@ -4,7 +4,7 @@ import Image from "next/image"; // If using Next.js
 const AppStoreDownloadButton = () => {
   const iosUrl = "https://apps.apple.com/app/6755723338";
   const iosAppId = "6755723338";
-  const androidPackageName = "com.tkg.taskgate";
+  const androidPackageName = "com.ever.journal";
 
   const handleClick = () => {
     if (typeof window !== "undefined") {

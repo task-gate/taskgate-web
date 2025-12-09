@@ -3,7 +3,7 @@ import Image from "next/image"; // If using Next.js
 
 const GooglePlayDownloadButton = () => {
   const androidUrl =
-    "https://play.google.com/store/apps/details?id=com.tkg.taskgate";
+    "https://play.google.com/store/apps/details?id=com.tkg.taskgate.prod";
   const iosAppId = "6755723338";
   const androidPackageName = "com.tkg.taskgate";
 

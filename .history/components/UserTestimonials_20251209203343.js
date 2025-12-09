@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import AppStoreDownloadButton from "./AppStoreDownloadButton";
+import GooglePlayDownloadButton from "./GooglePlayDownloadButton";
 
 const testimonials = [
   {
@@ -145,40 +147,9 @@ const UserTestimonials = () => {
               Transform impulsive app opens into moments of mindfulness and
               purpose.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => {
-                  const userAgent =
-                    navigator.userAgent || navigator.vendor || window.opera;
-                  if (/android/i.test(userAgent)) {
-                    window.open(
-                      "https://play.google.com/store/apps/details?id=com.tkg.taskgate",
-                      "_blank"
-                    );
-                  } else if (
-                    /iPad|iPhone|iPod/.test(userAgent) &&
-                    !window.MSStream
-                  ) {
-                    window.open(
-                      "https://apps.apple.com/app/6755723338",
-                      "_blank"
-                    );
-                  } else {
-                    window.open(
-                      "https://apps.apple.com/app/6755723338",
-                      "_blank"
-                    );
-                  }
-                }}
-                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer w-full sm:w-auto"
-              >
-                Download Now
-              </button>
-              <Link href="/about-us" className="w-full sm:w-auto">
-                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors w-full">
-                  Learn More
-                </button>
-              </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <GooglePlayDownloadButton />
+              <AppStoreDownloadButton />
             </div>
           </div>
         </motion.div>

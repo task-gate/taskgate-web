@@ -146,36 +146,23 @@ const UserTestimonials = () => {
               purpose.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
+              <button 
                 onClick={() => {
-                  const userAgent =
-                    navigator.userAgent || navigator.vendor || window.opera;
+                  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
                   if (/android/i.test(userAgent)) {
-                    window.open(
-                      "https://play.google.com/store/apps/details?id=com.tkg.taskgate",
-                      "_blank"
-                    );
-                  } else if (
-                    /iPad|iPhone|iPod/.test(userAgent) &&
-                    !window.MSStream
-                  ) {
-                    window.open(
-                      "https://apps.apple.com/app/6755723338",
-                      "_blank"
-                    );
+                    window.open('https://play.google.com/store/apps/details?id=com.tkg.taskgate', '_blank');
+                  } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    window.open('https://apps.apple.com/app/6755723338', '_blank');
                   } else {
-                    window.open(
-                      "https://apps.apple.com/app/6755723338",
-                      "_blank"
-                    );
+                    window.open('https://apps.apple.com/app/6755723338', '_blank');
                   }
                 }}
-                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer w-full sm:w-auto"
+                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer"
               >
                 Download Now
               </button>
-              <Link href="/about-us" className="w-full sm:w-auto">
-                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors w-full">
+              <Link href="/about-us">
+                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors">
                   Learn More
                 </button>
               </Link>

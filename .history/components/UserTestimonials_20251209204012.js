@@ -170,12 +170,12 @@ const UserTestimonials = () => {
                     );
                   }
                 }}
-                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer w-full sm:w-auto"
+                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer"
               >
                 Download Now
               </button>
-              <Link href="/about-us" className="w-full sm:w-auto">
-                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors w-full">
+              <Link href="/about-us">
+                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors">
                   Learn More
                 </button>
               </Link>
