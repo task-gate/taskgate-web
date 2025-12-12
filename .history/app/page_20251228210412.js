@@ -134,7 +134,7 @@ export default function Home() {
             transition={{ delay: 1.3, duration: 1 }}
             className="text-center"
           >
-            <div className="">
+            <div className="mx-auto max-w-md md:max-w-lg">
               <Image
                 src="/mock/mock3.png"
                 alt="TaskGate App Screenshot"

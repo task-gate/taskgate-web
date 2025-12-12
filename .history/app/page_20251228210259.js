@@ -134,15 +134,12 @@ export default function Home() {
             transition={{ delay: 1.3, duration: 1 }}
             className="text-center"
           >
-            <div className="">
+            <div className="mx-auto max-w-md md:max-w-lg aspect-[4/3] relative">
               <Image
                 src="/mock/mock3.png"
                 alt="TaskGate App Screenshot"
-                width={1500}
-                height={1125}
-                quality={100}
-                priority
-                className="rounded-3xl shadow-2xl"
+                fill
+                className="object-contain rounded-3xl shadow-2xl"
               />
             </div>
           </motion.div>
