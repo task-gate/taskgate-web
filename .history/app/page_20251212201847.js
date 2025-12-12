@@ -145,7 +145,7 @@ export default function Home() {
           >
             <div className="mx-auto max-w-md md:max-w-lg">
               <Image
-                src="/mock/mock3.png"
+                src="/mock/mock2.png"
                 alt="TaskGate App Screenshot"
                 width={400}
                 height={800}

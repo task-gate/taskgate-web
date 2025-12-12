@@ -5,56 +5,56 @@ import Image from "next/image";
 const features = [
   {
     id: "01",
-    title: "Break Impulsive Habits",
+    title: "Conscious App Interruption",
     desc: [
-      "Stop mindless scrolling before it starts by intercepting automatic app opens.",
-      "Build awareness of your phone usage patterns and replace bad habits with good ones.",
-      "Transform unconscious phone reaching into intentional, purposeful actions.",
+      "Transform mindless scrolling into mindful moments with gentle app interruptions.",
+      "Receive personalized affirmations and manifestation reminders aligned with your goals.",
+      "Create sacred pauses that help you choose consciousness over distraction.",
     ],
   },
   {
     id: "02",
-    title: "Personalized Habit Building",
+    title: "Personalized Affirmation Screens",
     desc: [
-      "Customize which apps require tasks and create your own habit-building rules.",
-      "Choose from breathing exercises, reflections, gratitude prompts, or custom tasks.",
-      "Design a system that matches your goals—whether it's reducing social media or building mindfulness.",
+      "Access customized Law of Attraction affirmations based on your unique energy patterns.",
+      "Each affirmation is designed to elevate your vibration and attract abundance.",
+      "Practice manifestation principles seamlessly integrated into your daily digital routine.",
     ],
   },
   {
     id: "03",
-    title: "Track Your Progress",
+    title: "Digital Energy Pattern Analysis",
     desc: [
-      "See exactly how your habits are changing with detailed analytics and insights.",
-      "Monitor task completion rates, streak tracking, and time saved from distractions.",
-      "Celebrate milestones as you build stronger, healthier digital habits over time.",
+      "Monitor how your phone usage affects your manifestation practice and energy levels.",
+      "Gain insights into when you're most aligned and when you need energetic realignment.",
+      "Discover patterns that either support or hinder your conscious living goals.",
     ],
   },
   {
     id: "04",
-    title: "Flexible & Adaptive System",
+    title: "Manifestation Goal Integration",
     desc: [
-      "Adjust task difficulty and frequency as your habits strengthen.",
-      "Set different rules for different times of day—stricter during work, relaxed in the evening.",
-      "Your habit-building system evolves with you as you grow and improve.",
+      "Connect your digital habits directly with your manifestation and life goals.",
+      "Create conscious pauses before potentially energy-draining activities.",
+      "Stay focused on attracting your desires through intentional digital interactions.",
     ],
   },
   {
     id: "05",
-    title: "Expand With Partner Apps",
+    title: "Visualization & Vision Board Tools",
     desc: [
-      "Integrate with partner apps to add even more productive habits to your routine.",
-      "Complete language flashcards, fitness challenges, or learning tasks before app access.",
-      "Turn every impulsive moment into an opportunity to practice something valuable.",
+      "Access powerful visualization exercises during app interruption moments.",
+      "Create and view digital vision boards that reinforce your manifestation practice.",
+      "Turn every digital interaction into an opportunity to visualize your dream life.",
     ],
   },
   {
     id: "06",
-    title: "Your Data, Your Device",
+    title: "Privacy-First Spiritual Practice",
     desc: [
-      "All habit tracking and personal data stays completely private on your device.",
-      "No accounts, no cloud sync, no data collection—just you building better habits.",
-      "Focus on your growth without worrying about privacy or data security.",
+      "Your manifestation journey and affirmations remain completely private on your device.",
+      "No data sharing ensures your spiritual practice stays sacred and personal.",
+      "Maintain the energetic integrity of your conscious living path.",
     ],
   },
 ];
@@ -75,11 +75,10 @@ const Feature = () => {
 
           <article className="flex flex-col items-center justify-center mt-16">
             <p className="mt-5 text-justify md:max-w-[60%] md:text-center text-white/90">
-              TaskGate is your personalized habit-building companion that helps
-              you replace impulsive scrolling with intentional actions.
-              Customize your experience, track your progress, and build lasting
-              digital wellness habits that actually stick—one mindful moment at
-              a time.
+              TaskGate transforms every digital interaction into a manifestation
+              opportunity. With conscious interruptions, personalized
+              affirmations, and energy pattern insights, your spiritual journey
+              integrates seamlessly with your technology use.
             </p>
           </article>
         </div>

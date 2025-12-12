@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="twitter:image"
-          content="https://taskgate-landing-web.vercel.app/og.png"
+          content="https://taskgate-landing-web.vercel.app//og.png"
         />
       </head>
       <body className="text-gray-900 min-h-screen flex flex-col bg-black">

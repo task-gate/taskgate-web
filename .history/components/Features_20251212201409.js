@@ -5,56 +5,56 @@ import Image from "next/image";
 const features = [
   {
     id: "01",
-    title: "Break Impulsive Habits",
+    title: "Impulse Interception",
     desc: [
-      "Stop mindless scrolling before it starts by intercepting automatic app opens.",
-      "Build awareness of your phone usage patterns and replace bad habits with good ones.",
-      "Transform unconscious phone reaching into intentional, purposeful actions.",
+      "TaskGate catches impulsive app opens before they happen, giving you a moment to pause.",
+      "Break the automatic reach-for-phone cycle with intentional interruptions.",
+      "Choose consciousness over distraction with every app access.",
     ],
   },
   {
     id: "02",
-    title: "Personalized Habit Building",
+    title: "Quick Task Challenges",
     desc: [
-      "Customize which apps require tasks and create your own habit-building rules.",
-      "Choose from breathing exercises, reflections, gratitude prompts, or custom tasks.",
-      "Design a system that matches your goals—whether it's reducing social media or building mindfulness.",
+      "Complete short activities like breathing exercises, reflections, or journal prompts.",
+      "Earn access to apps through meaningful micro-tasks that take just seconds.",
+      "Build healthier digital habits one task at a time.",
     ],
   },
   {
     id: "03",
-    title: "Track Your Progress",
+    title: "Usage Analytics & Insights",
     desc: [
-      "See exactly how your habits are changing with detailed analytics and insights.",
-      "Monitor task completion rates, streak tracking, and time saved from distractions.",
-      "Celebrate milestones as you build stronger, healthier digital habits over time.",
+      "Track how often you're opening apps impulsively vs. intentionally.",
+      "Visualize your progress with detailed analytics and usage patterns.",
+      "Identify triggers and times when you're most prone to mindless scrolling.",
     ],
   },
   {
     id: "04",
-    title: "Flexible & Adaptive System",
+    title: "Customizable App Controls",
     desc: [
-      "Adjust task difficulty and frequency as your habits strengthen.",
-      "Set different rules for different times of day—stricter during work, relaxed in the evening.",
-      "Your habit-building system evolves with you as you grow and improve.",
+      "Choose which apps require task completion and customize your experience.",
+      "Set different challenge levels for different apps based on your goals.",
+      "Create personalized gatekeeping rules that work for your lifestyle.",
     ],
   },
   {
     id: "05",
-    title: "Expand With Partner Apps",
+    title: "Partner App Integration",
     desc: [
-      "Integrate with partner apps to add even more productive habits to your routine.",
-      "Complete language flashcards, fitness challenges, or learning tasks before app access.",
-      "Turn every impulsive moment into an opportunity to practice something valuable.",
+      "Connect with partner apps via deep links for even more task variety.",
+      "Complete mini-challenges from partner apps and get redirected back automatically.",
+      "Expand your task options beyond built-in activities with seamless integration.",
     ],
   },
   {
     id: "06",
-    title: "Your Data, Your Device",
+    title: "Privacy-First Design",
     desc: [
-      "All habit tracking and personal data stays completely private on your device.",
-      "No accounts, no cloud sync, no data collection—just you building better habits.",
-      "Focus on your growth without worrying about privacy or data security.",
+      "All your data stays on your device—no cloud storage, no data sharing.",
+      "Your usage patterns and task completions remain completely private.",
+      "Build better digital habits without compromising your privacy.",
     ],
   },
 ];
@@ -75,11 +75,10 @@ const Feature = () => {
 
           <article className="flex flex-col items-center justify-center mt-16">
             <p className="mt-5 text-justify md:max-w-[60%] md:text-center text-white/90">
-              TaskGate is your personalized habit-building companion that helps
-              you replace impulsive scrolling with intentional actions.
-              Customize your experience, track your progress, and build lasting
-              digital wellness habits that actually stick—one mindful moment at
-              a time.
+              TaskGate transforms every digital interaction into a manifestation
+              opportunity. With conscious interruptions, personalized
+              affirmations, and energy pattern insights, your spiritual journey
+              integrates seamlessly with your technology use.
             </p>
           </article>
         </div>

@@ -75,11 +75,10 @@ const Feature = () => {
 
           <article className="flex flex-col items-center justify-center mt-16">
             <p className="mt-5 text-justify md:max-w-[60%] md:text-center text-white/90">
-              TaskGate is your personalized habit-building companion that helps
-              you replace impulsive scrolling with intentional actions.
-              Customize your experience, track your progress, and build lasting
-              digital wellness habits that actually stick—one mindful moment at
-              a time.
+              TaskGate transforms impulsive app opens into intentional moments.
+              With smart interruptions, quick task challenges, and detailed
+              analytics, you'll build healthier digital habits and reclaim
+              control over your screen time.
             </p>
           </article>
         </div>

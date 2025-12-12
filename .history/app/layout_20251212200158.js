@@ -42,13 +42,10 @@ export default function RootLayout({ children }) {
           content="TaskGate - Mindful App Usage, One Task at a Time"
         />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://taskgate-landing-web.vercel.app/"
-        />
+        <meta property="og:url" content="https://taskgate-landing-web.vercel.app/" />
         <meta
           property="og:image"
-          content="https://taskgate-landing-web.vercel.app/og.png"
+          content="https://taskgate-landing-web.vercel.app//og.png"
         />
         <meta
           property="og:description"
@@ -66,7 +63,7 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="twitter:image"
-          content="https://taskgate-landing-web.vercel.app/og.png"
+          content="https://taskgate-landing-web.vercel.app//og.png"
         />
       </head>
       <body className="text-gray-900 min-h-screen flex flex-col bg-black">
