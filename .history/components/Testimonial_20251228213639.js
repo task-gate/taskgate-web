@@ -53,26 +53,27 @@ const Testimonial = () => {
     >
       <article className="container mx-auto bg-transparent relative py-14 p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px] flex flex-col items-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center">
+          <p className="text-sm text-gray-500 mb-2">What We Expect to Hear</p>
           <h2 className="text-h2 lg:text-h3 font-bold text-center max-w-[80%]">
-            What Early Users Are Saying
+            Expected User Feedback
           </h2>
           <span className="w-16 h-1 mt-3 bg-bg" />
 
           <article className="flex flex-col items-center justify-center mt-10">
             <p className="mt-5 text-center max-w-[80%] lg:max-w-[60%] lg:leading-8">
-              Our beta testers have some wonderful experience to share with you.
-              Here are some of the reviews we have received from them.
+              Here&apos;s the kind of experience we&apos;re building TaskGate to
+              deliver. Real user testimonials coming soon!
             </p>
           </article>
         </div>
 
-        <div className="mt-4 bg-white w-full relative">
+        <div className="mt-4 bg-transparent w-full relative">
           <motion.article
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
             viewport={{ once: true }}
-            className="w-[100%] bg-white relative top-[3rem]"
+            className="w-[100%] bg-transparent relative top-[3rem]"
           >
             <div className="relative w-full mb-20">
               <div className="embla" ref={emblaRef}>
@@ -82,17 +83,17 @@ const Testimonial = () => {
                       key={index}
                       className="embla__slide px-4 md:max-w-[60%]"
                     >
-                      <div className="bg-white border rounded-lg py-12 px-5 shadow-xl relative items-center flex flex-col gap-6 h-full">
-                        <FaQuoteLeft className="text-[#505050] text-2xl" />
-                        <p className="text-[#505050] leading-relaxed text-center">
+                      <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl py-12 px-5 shadow-xl hover:bg-white/15 hover:border-purple-400/40 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative items-center flex flex-col gap-6 h-full">
+                        <FaQuoteLeft className="text-purple-300 text-2xl" />
+                        <p className="text-white/90 leading-relaxed text-center font-medium">
                           {review.desc}
                         </p>
                         <div className="flex items-center gap-4">
                           <div className="flex gap-2 items-start">
-                            <h1 className="text-primary font-extrabold text-[16px] leading-[24.55px]">
+                            <h1 className="text-white font-extrabold text-[16px] leading-[24.55px]">
                               {`- ${review.name},`}
                             </h1>
-                            <span className="text-[#091A34] italic">
+                            <span className="text-white/70 italic">
                               {review.title}
                             </span>
                           </div>

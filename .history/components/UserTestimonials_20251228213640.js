@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import Link from "next/link";
 
 const testimonials = [
   {
@@ -56,13 +57,21 @@ const UserTestimonials = () => {
     >
       <div className="container mx-auto p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px]">
         <div className="text-center mb-12 bg-bg-secondary border border-border rounded-3xl p-6 shadow-sm">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+            viewport={{ once: true }}
+            className="text-sm text-gray-500 mb-2"
+          >
+            What We Expect to Hear
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold mb-3 text-primary"
           >
-            What Our Users Are Saying
+            Expected User Feedback
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -74,8 +83,8 @@ const UserTestimonials = () => {
             viewport={{ once: true }}
             className="text-base text-secondary max-w-2xl mx-auto"
           >
-            Join thousands who are using TaskGate to build better digital habits
-            and transform impulsive scrolling into intentional usage.
+            Here&apos;s the kind of experience we&apos;re building TaskGate to deliver.
+            Real user testimonials coming soon!
           </motion.p>
         </div>
 
@@ -137,7 +146,7 @@ const UserTestimonials = () => {
         >
           <div className="bg-bg-secondary border border-border p-8 rounded-lg">
             <h3 className="text-2xl font-bold mb-4 text-primary">
-              Join Thousands Breaking the Scroll Cycle
+              Be Among the First to Break the Scroll Cycle
             </h3>
             <p className="text-secondary mb-6 max-w-2xl mx-auto">
               Start your journey to more intentional phone usage today.
@@ -145,12 +154,39 @@ const UserTestimonials = () => {
               purpose.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors">
+              <button
+                onClick={() => {
+                  const userAgent =
+                    navigator.userAgent || navigator.vendor || window.opera;
+                  if (/android/i.test(userAgent)) {
+                    window.open(
+                      "https://play.google.com/store/apps/details?id=com.tkg.taskgate",
+                      "_blank"
+                    );
+                  } else if (
+                    /iPad|iPhone|iPod/.test(userAgent) &&
+                    !window.MSStream
+                  ) {
+                    window.open(
+                      "https://apps.apple.com/app/6755723338",
+                      "_blank"
+                    );
+                  } else {
+                    window.open(
+                      "https://apps.apple.com/app/6755723338",
+                      "_blank"
+                    );
+                  }
+                }}
+                className="bg-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer w-full sm:w-auto"
+              >
                 Download Now
               </button>
-              <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors">
-                Learn More
-              </button>
+              <Link href="/about-us" className="w-full sm:w-auto">
+                <button className="border-2 border-accent text-accent px-8 py-3 rounded-lg font-medium hover:bg-accent hover:text-white transition-colors w-full">
+                  Learn More
+                </button>
+              </Link>
             </div>
           </div>
         </motion.div>

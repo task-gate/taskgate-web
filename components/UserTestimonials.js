@@ -57,13 +57,21 @@ const UserTestimonials = () => {
     >
       <div className="container mx-auto p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px]">
         <div className="text-center mb-12 bg-bg-secondary border border-border rounded-3xl p-6 shadow-sm">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+            viewport={{ once: true }}
+            className="text-sm text-gray-500 mb-2"
+          >
+            What We Expect to Hear
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold mb-3 text-primary"
           >
-            What Our Users Are Saying
+            Expected User Feedback
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -75,8 +83,8 @@ const UserTestimonials = () => {
             viewport={{ once: true }}
             className="text-base text-secondary max-w-2xl mx-auto"
           >
-            Join thousands who are using TaskGate to build better digital habits
-            and transform impulsive scrolling into intentional usage.
+            Here&apos;s the kind of experience we&apos;re building TaskGate to
+            deliver. Real user testimonials coming soon!
           </motion.p>
         </div>
 
@@ -138,7 +146,7 @@ const UserTestimonials = () => {
         >
           <div className="bg-bg-secondary border border-border p-8 rounded-lg">
             <h3 className="text-2xl font-bold mb-4 text-primary">
-              Join Thousands Breaking the Scroll Cycle
+              Be Among the First to Break the Scroll Cycle
             </h3>
             <p className="text-secondary mb-6 max-w-2xl mx-auto">
               Start your journey to more intentional phone usage today.

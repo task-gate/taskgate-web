@@ -181,27 +181,24 @@ export default function Partnership() {
             </div>
           </motion.div>
 
-          {/* Goals */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="max-w-4xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           >
-            <p className="text-center text-sm text-gray-500 mb-4">Our Vision</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-                <div className="text-4xl font-bold text-accent mb-2">10K+</div>
-                <div className="text-gray-400">Active Users</div>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-                <div className="text-4xl font-bold text-accent mb-2">100K+</div>
-                <div className="text-gray-400">Tasks Completed</div>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
-                <div className="text-4xl font-bold text-accent mb-2">95%</div>
-                <div className="text-gray-400">User Satisfaction</div>
-              </div>
+            <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-4xl font-bold text-accent mb-2">10K+</div>
+              <div className="text-gray-400">Active Users</div>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-4xl font-bold text-accent mb-2">100K+</div>
+              <div className="text-gray-400">Tasks Completed</div>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+              <div className="text-4xl font-bold text-accent mb-2">95%</div>
+              <div className="text-gray-400">User Satisfaction</div>
             </div>
           </motion.div>
         </div>
@@ -225,13 +222,11 @@ export default function Partnership() {
           >
             <div className="mb-12 flex justify-center">
               <Image
-                src="/mock/mock10.png"
+                src="/mock/mock11.png"
                 alt="TaskGate Partnership"
-                width={1500}
-                height={1125}
-                quality={100}
-                priority
-                className="rounded-3xl shadow-2xl w-full"
+                width={500}
+                height={1000}
+                className="rounded-3xl shadow-2xl max-w-sm w-full"
               />
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
