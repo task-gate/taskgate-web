@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
           content="https://taskgate-landing-web.vercel.app/og.png"
         />
       </head>
-      <body className="text-gray-900 min-h-screen flex flex-col bg-black">
+      <body className="text-gray-900 min-h-screen flex flex-col bg-black" suppressHydrationWarning>
         {/* ✅ Ensure Meta Pixel loads only on the client */}
         <Suspense fallback={null}>
           <MetaPixelNoSSR />

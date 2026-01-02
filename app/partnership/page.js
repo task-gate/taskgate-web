@@ -382,7 +382,7 @@ export default function Partnership() {
             </p>
             <div className="flex justify-center mb-12">
               <video
-                src="/mock/demo.mp4"
+                src="/mock/demo2.mp4"
                 autoPlay
                 loop
                 muted

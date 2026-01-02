@@ -102,13 +102,6 @@ h5 {
   .embla__slide {
     width: 50%;
   }
-
-  .footer {
-    background-image: url("/bg/footerBg.webp");
-    background-size: 30%;
-    background-repeat: no-repeat;
-    background-position: center right;
-  }
 }
 
 .react-international-phone-input-container {

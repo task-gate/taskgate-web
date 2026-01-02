@@ -45,6 +45,7 @@ const Navbar = () => {
             width={32}
             height={32}
             className="mr-2"
+            priority
           />
           TaskGate
         </Link>
