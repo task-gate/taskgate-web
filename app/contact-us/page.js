@@ -73,21 +73,27 @@ const ContactForm = () => {
     },
   });
 
+  const hasErrors = Object.keys(formik.errors).length > 0;
+
   useEffect(() => {
     if (interest === "developer") {
       formik.setFieldValue("areaOfInterest.developerSupport", true);
     } else if (interest === "partnership") {
       formik.setFieldValue("areaOfInterest.partnership", true);
     }
-  }, [interest, formik]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interest]);
 
   useEffect(() => {
+    if (!hasErrors) return;
+
     const timer = setTimeout(() => {
       formik.setErrors({});
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [formik, formik.errors]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasErrors]);
 
   return (
     <>

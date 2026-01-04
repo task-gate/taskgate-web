@@ -31,9 +31,9 @@ const Footer = () => {
               TaskGate
             </Link>
             <small className="max-w-[80%] text-[#fff] text-[15] leading-[20.46px] lg:max-w-[50%]">
-              TaskGate brings the Law of Attraction to your digital life.
-              Transform every phone interaction into a moment of conscious
-              awareness and manifestation.
+              TaskGate helps you build intentional digital habits by creating
+              mindful pauses before you open distracting apps. Transform
+              impulsive scrolling into conscious choices.
             </small>
           </section>
           <section className="">

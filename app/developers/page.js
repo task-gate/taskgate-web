@@ -14,6 +14,33 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { SiFlutter, SiApple, SiAndroid, SiGithub } from "react-icons/si";
+import { Highlight, themes } from "prism-react-renderer";
+
+const CodeBlock = ({ code, language }) => (
+  <Highlight theme={themes.vsDark} code={code.trim()} language={language}>
+    {({ tokens, getLineProps, getTokenProps }) => (
+      <pre
+        style={{
+          backgroundColor: "#1e1e1e",
+          borderRadius: "0.75rem",
+          padding: "1.25rem",
+          fontSize: "0.9rem",
+          lineHeight: "1.6",
+          overflow: "auto",
+          border: "1px solid #333",
+        }}
+      >
+        {tokens.map((line, i) => (
+          <div key={i} {...getLineProps({ line })}>
+            {line.map((token, key) => (
+              <span key={key} {...getTokenProps({ token })} />
+            ))}
+          </div>
+        ))}
+      </pre>
+    )}
+  </Highlight>
+);
 
 const sdks = [
   {
@@ -21,11 +48,7 @@ const sdks = [
     platform: "Flutter / Dart",
     description:
       "Cross-platform SDK for building TaskGate integrations in Flutter apps. Available on pub.dev with full documentation and examples.",
-    icon: (
-      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-        <SiFlutter className="w-8 h-8 text-white" />
-      </div>
-    ),
+    iconType: "flutter",
     link: "https://pub.dev/packages/taskgate_sdk",
     linkText: "View on pub.dev",
     badge: "pub.dev",
@@ -37,11 +60,7 @@ const sdks = [
     platform: "Swift / Objective-C",
     description:
       "Native iOS SDK for seamless TaskGate integration in your iOS applications. Supports iOS 13+ with CocoaPods.",
-    icon: (
-      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
-        <SiApple className="w-8 h-8 text-white" />
-      </div>
-    ),
+    iconType: "ios",
     link: "https://github.com/task-gate/taskgate-sdk-ios",
     linkText: "View on GitHub",
     badge: "GitHub",
@@ -53,11 +72,7 @@ const sdks = [
     platform: "Kotlin / Java",
     description:
       "Native Android SDK for integrating TaskGate into your Android apps. Supports Android 6.0+ with Gradle dependency.",
-    icon: (
-      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-        <SiAndroid className="w-8 h-8 text-white" />
-      </div>
-    ),
+    iconType: "android",
     link: "https://github.com/task-gate/taskgate-sdk-android",
     linkText: "View on GitHub",
     badge: "GitHub",
@@ -66,26 +81,61 @@ const sdks = [
   },
 ];
 
-const features = [
+const getSdkIcon = (iconType) => {
+  switch (iconType) {
+    case "flutter":
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+          <SiFlutter className="w-8 h-8 text-white" />
+        </div>
+      );
+    case "ios":
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+          <SiApple className="w-8 h-8 text-white" />
+        </div>
+      );
+    case "android":
+      return (
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+          <SiAndroid className="w-8 h-8 text-white" />
+        </div>
+      );
+    default:
+      return null;
+  }
+};
+
+const integrationSteps = [
   {
-    icon: <Zap className="w-6 h-6 text-accent" />,
-    title: "Easy Integration",
-    description: "Get started in minutes with our well-documented SDKs.",
+    step: "01",
+    title: "Request Your Provider ID",
+    description:
+      "Contact us to register as a partner app and receive your unique providerId. This ID identifies your app in the TaskGate ecosystem.",
   },
   {
-    icon: <BookOpen className="w-6 h-6 text-accent" />,
-    title: "Full Documentation",
-    description: "Comprehensive guides and API references for every platform.",
+    step: "02",
+    title: "Install the SDK",
+    description:
+      "Add our SDK to your project using your preferred package manager. Available for Flutter, iOS, and Android.",
   },
   {
-    icon: <Terminal className="w-6 h-6 text-accent" />,
-    title: "Sample Projects",
-    description: "Example apps to help you understand best practices.",
+    step: "03",
+    title: "Configure Deep Links",
+    description:
+      "Set up app links (Android) or universal links (iOS) to receive task requests from TaskGate with the task parameters.",
   },
   {
-    icon: <Code2 className="w-6 h-6 text-accent" />,
-    title: "Open Source",
-    description: "All SDKs are open source and available on GitHub.",
+    step: "04",
+    title: "Build Your Mini-Task",
+    description:
+      "Create an engaging mini-task experience in your app. This could be a quick game, quiz, breathing exercise, or any brief activity.",
+  },
+  {
+    step: "05",
+    title: "Send Completion Callback",
+    description:
+      "When the user completes your task, use the SDK to send a callback to TaskGate, which unlocks access to the user's original app.",
   },
 ];
 
@@ -153,6 +203,36 @@ export default function Developers() {
       {/* SDKs Section - WHITE */}
       <section className="bg-white py-20">
         <div className="max-w-6xl mx-auto px-4">
+          {/* Provider ID Notice */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-16 bg-gradient-to-r from-accent/5 to-purple-600/5 border border-accent/20 rounded-2xl p-8 text-center"
+          >
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                First Step: Get Your Provider ID
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Before integrating with TaskGate, partner apps must obtain a
+                unique{" "}
+                <code className="bg-gray-200 px-2 py-1 rounded text-accent font-mono text-sm">
+                  providerId
+                </code>
+                . This ID identifies your app in the TaskGate ecosystem and
+                enables secure callback communication.
+              </p>
+              <Link href="/contact-us?interest=developer">
+                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity">
+                  Request Your Provider ID
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -180,7 +260,7 @@ export default function Developers() {
                 className="bg-gray-50 rounded-3xl p-8 border border-gray-200 hover:border-accent/50 hover:shadow-lg transition-all duration-300 group"
               >
                 <div className="flex items-start justify-between mb-6">
-                  {sdk.icon}
+                  {getSdkIcon(sdk.iconType)}
                   <span
                     className={`px-3 py-1 rounded-full bg-gradient-to-r ${sdk.badgeColor} text-white text-xs font-medium`}
                   >
@@ -218,7 +298,7 @@ export default function Developers() {
         </div>
       </section>
 
-      {/* Features Section - BLACK */}
+      {/* Integration Steps Section - BLACK */}
       <section className="bg-black py-20">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
@@ -229,34 +309,222 @@ export default function Developers() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Why Developers Love Our SDKs
+              How to Integrate with TaskGate
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              We prioritize developer experience with well-structured,
-              thoroughly tested code.
+              Follow these steps to become a TaskGate partner app and reach
+              users building better digital habits.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
+          <div className="space-y-6">
+            {integrationSteps.map((item, index) => (
               <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={item.step}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-accent/30 transition-all duration-300"
+                className="flex gap-6 items-start bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-accent/30 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                  {feature.icon}
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-accent to-purple-600 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-lg">
+                    {item.step}
+                  </span>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-sm">{feature.description}</p>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Deep Link Setup Section */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Deep Link Setup by Platform
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Configure your app to receive task requests from TaskGate using
+              platform-specific deep linking.
+            </p>
+          </motion.div>
+
+          <div className="space-y-12">
+            {/* iOS */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                {getSdkIcon("ios")}
+                <h3 className="text-2xl font-bold text-gray-900">iOS</h3>
+              </div>
+              <div className="space-y-8">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-green-500 font-bold">✓</span>
+                    <p className="font-semibold text-gray-900 text-lg">
+                      URL Scheme{" "}
+                      <span className="text-sm text-gray-500 font-normal">
+                        (required for install detection)
+                      </span>
+                    </p>
+                  </div>
+                  <CodeBlock
+                    language="xml"
+                    code={`<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>yourapp</string>
+    </array>
+  </dict>
+</array>`}
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-green-500 font-bold">✓</span>
+                    <p className="font-semibold text-gray-900 text-lg">
+                      Universal Links{" "}
+                      <span className="text-sm text-gray-500 font-normal">
+                        (required for launching task)
+                      </span>
+                    </p>
+                  </div>
+                  <CodeBlock
+                    language="bash"
+                    code={`# In Xcode → Signing & Capabilities:
++ Associated Domains → applinks:yourdomain.com`}
+                  />
+                  <p className="mt-4 text-sm text-gray-600">
+                    Verify your apple-app-site-association:{" "}
+                    <a
+                      href="https://getuniversal.link/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent hover:underline font-medium"
+                    >
+                      getuniversal.link
+                    </a>
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Flutter docs:{" "}
+                    <a
+                      href="https://docs.flutter.dev/cookbook/navigation/set-up-universal-links"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent hover:underline font-medium"
+                    >
+                      Set up Universal Links
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Android */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                {getSdkIcon("android")}
+                <h3 className="text-2xl font-bold text-gray-900">Android</h3>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-green-500 font-bold">✓</span>
+                  <p className="font-semibold text-gray-900 text-lg">
+                    App Links{" "}
+                    <span className="text-sm text-gray-500 font-normal">
+                      (required for launching task)
+                    </span>
+                  </p>
+                </div>
+                <CodeBlock
+                  language="xml"
+                  code={`<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data 
+        android:scheme="https"
+        android:host="yourdomain.com"
+        android:pathPrefix="/taskgate" />
+</intent-filter>`}
+                />
+                <p className="mt-4 text-sm text-gray-600">
+                  Flutter docs:{" "}
+                  <a
+                    href="https://docs.flutter.dev/cookbook/navigation/set-up-app-links"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline font-medium"
+                  >
+                    Set up App Links
+                  </a>
+                </p>
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <p className="font-semibold text-gray-900 mb-2">
+                    Verify in Play Console:
+                  </p>
+                  <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                    <li>Go to Play Console → Grow users → Deep links</li>
+                    <li>
+                      Check that your domain shows &quot;Deep linked&quot;
+                      status
+                    </li>
+                    <li>
+                      Ensure assetlinks.json is properly hosted at your domain
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Help with Deep Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-12 text-center"
+          >
+            <p className="text-gray-600">
+              Need help setting up App Links or Universal Links?{" "}
+              <a
+                href="/contact-us?interest=developer"
+                className="text-accent hover:underline font-medium"
+              >
+                Contact developer support
+              </a>
+            </p>
+          </motion.div>
         </div>
       </section>
 
