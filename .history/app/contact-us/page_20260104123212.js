@@ -79,7 +79,7 @@ const ContactForm = () => {
     } else if (interest === "partnership") {
       formik.setFieldValue("areaOfInterest.partnership", true);
     }
-  }, [interest, formik]);
+  }, [interest]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

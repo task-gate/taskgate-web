@@ -23,6 +23,14 @@ const ContactForm = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (interest === "developer") {
+      formik.setFieldValue("areaOfInterest.developerSupport", true);
+    } else if (interest === "partnership") {
+      formik.setFieldValue("areaOfInterest.partnership", true);
+    }
+  }, [interest]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -72,14 +80,6 @@ const ContactForm = () => {
       }
     },
   });
-
-  useEffect(() => {
-    if (interest === "developer") {
-      formik.setFieldValue("areaOfInterest.developerSupport", true);
-    } else if (interest === "partnership") {
-      formik.setFieldValue("areaOfInterest.partnership", true);
-    }
-  }, [interest, formik]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

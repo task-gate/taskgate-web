@@ -74,14 +74,6 @@ const ContactForm = () => {
   });
 
   useEffect(() => {
-    if (interest === "developer") {
-      formik.setFieldValue("areaOfInterest.developerSupport", true);
-    } else if (interest === "partnership") {
-      formik.setFieldValue("areaOfInterest.partnership", true);
-    }
-  }, [interest, formik]);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       formik.setErrors({});
     }, 3000);

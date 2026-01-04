@@ -19,7 +19,7 @@
 
 ---
 
-# 🌟 TaskGate — Mindful App Usage, One Task at a Time <a name="about-project"></a>
+# 🌟 TaskGate — Design Your Digital Habits <a name="about-project"></a>
 
 **TaskGate** is a digital wellness tool that prevents impulsive app usage.  
 Instead of opening distracting apps immediately, TaskGate **intercepts the launch** and requires users to complete a short **mini-task**—such as a breathing exercise, reflection, flashcard, or a partner app’s micro-task—before granting access.
