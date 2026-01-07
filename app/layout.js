@@ -1,148 +1,110 @@
-"use client";
-
 import "./globals.css";
-import { motion } from "framer-motion";
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import { usePathname } from "next/navigation";
+import LayoutClient from "@/components/LayoutClient";
 
-// ✅ Load Meta Pixel only on the client (Prevents SSR issues)
-const MetaPixelNoSSR = dynamic(() => import("@/components/MetaPixelEvents"), {
-  ssr: false,
-});
+// ✅ Export metadata for SEO - this runs on the server
+export const metadata = {
+  title: "TaskGate — Design Your Digital Habits",
+  description:
+    "TaskGate prevents impulsive app opens by requiring you to complete a quick task first. Break the cycle of mindless scrolling with breathing exercises, reflections, flashcards, or partner app challenges.",
+  keywords: [
+    "digital habits",
+    "screen time",
+    "app blocker",
+    "focus app",
+    "productivity",
+    "mindfulness",
+    "TaskGate",
+  ],
+  authors: [{ name: "TaskGate" }],
+  creator: "TaskGate",
+  publisher: "TaskGate",
+  metadataBase: new URL("https://taskgate.co"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "TaskGate — Design Your Digital Habits",
+    description:
+      "Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration.",
+    url: "https://taskgate.co",
+    siteName: "TaskGate",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "TaskGate — Design Your Digital Habits",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TaskGate — Design Your Digital Habits",
+    description:
+      "Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration.",
+    site: "@TaskGateApp",
+    images: ["/og.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/favicon/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/favicon/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/favicon/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+// ✅ Structured data for Google rich results
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "TaskGate",
+  url: "https://taskgate.co",
+  logo: "https://taskgate.co/favicon/android-chrome-512x512.png",
+  sameAs: [],
+  description:
+    "TaskGate prevents impulsive app opens by requiring you to complete a quick task first.",
+};
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const isAdminRoute = pathname?.startsWith("/admin");
-  const isPartnerRoute = pathname?.startsWith("/partner");
-  const hideNavFooter = isAdminRoute || isPartnerRoute;
-
-  const pageVariants = {
-    initial: { opacity: 0, x: -100 },
-    animate: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5, ease: "easeInOut" },
-    },
-    exit: {
-      opacity: 0,
-      x: 100,
-      transition: { duration: 0.3, ease: "easeInOut" },
-    },
-  };
-
   return (
     <html lang="en">
       <head>
-        <title>TaskGate — Design Your Digital Habits</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="description"
-          content="TaskGate prevents impulsive app opens by requiring you to complete a quick task first. Break the cycle of mindless scrolling with breathing exercises, reflections, flashcards, or partner app challenges."
-        />
-        {/* Favicon and App Icons for Google Search Results */}
-        <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/favicon/android-chrome-192x192.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="/favicon/android-chrome-512x512.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-
-        {/* Structured Data for Google Search Logo */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "TaskGate",
-              url: "https://taskgate.co",
-              logo: "https://taskgate.co/favicon/android-chrome-512x512.png",
-              sameAs: [],
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <meta
-          property="og:title"
-          content="TaskGate — Design Your Digital Habits"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://taskgate.co/" />
-        <meta property="og:image" content="https://taskgate.co/og.png" />
-        <meta
-          property="og:description"
-          content="Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration."
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@TaskGateApp" />
-        <meta
-          name="twitter:title"
-          content="TaskGate — Design Your Digital Habits"
-        />
-        <meta
-          name="twitter:description"
-          content="Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration."
-        />
-        <meta name="twitter:image" content="https://taskgate.co/og.png" />
       </head>
       <body
         className="text-gray-900 min-h-screen flex flex-col bg-black"
         suppressHydrationWarning
       >
-        {/* ✅ Ensure Meta Pixel loads only on the client */}
-        <Suspense fallback={null}>
-          <MetaPixelNoSSR />
-        </Suspense>
-
-        {!hideNavFooter && (
-          <header className="w-full relative z-50">
-            <Navbar />
-          </header>
-        )}
-
-        <motion.main
-          className="w-full mx-auto relative z-10"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          {children}
-        </motion.main>
-
-        {!hideNavFooter && (
-          <div className="relative z-10">
-            <Footer />
-          </div>
-        )}
+        <LayoutClient>{children}</LayoutClient>
       </body>
     </html>
   );
