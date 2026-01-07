@@ -16,6 +16,8 @@ const MetaPixelNoSSR = dynamic(() => import("@/components/MetaPixelEvents"), {
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isAdminRoute = pathname?.startsWith("/admin");
+  const isPartnerRoute = pathname?.startsWith("/partner");
+  const hideNavFooter = isAdminRoute || isPartnerRoute;
 
   const pageVariants = {
     initial: { opacity: 0, x: -100 },
@@ -120,7 +122,7 @@ export default function RootLayout({ children }) {
           <MetaPixelNoSSR />
         </Suspense>
 
-        {!isAdminRoute && (
+        {!hideNavFooter && (
           <header className="w-full relative z-50">
             <Navbar />
           </header>
@@ -136,7 +138,7 @@ export default function RootLayout({ children }) {
           {children}
         </motion.main>
 
-        {!isAdminRoute && (
+        {!hideNavFooter && (
           <div className="relative z-10">
             <Footer />
           </div>

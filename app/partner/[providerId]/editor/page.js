@@ -909,7 +909,7 @@ export default function PartnerConfigEditor() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)] pt-24 pb-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--background)] py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       {/* Notification */}
       <AnimatePresence>
         {notification && (
@@ -917,7 +917,7 @@ export default function PartnerConfigEditor() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className={`fixed top-24 right-4 z-[9999] flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg ${
+            className={`fixed top-4 right-4 left-4 sm:left-auto z-[9999] flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg ${
               notification.type === "success"
                 ? "bg-green-500 text-white"
                 : "bg-red-500 text-white"
@@ -935,8 +935,8 @@ export default function PartnerConfigEditor() {
 
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
             <button
               onClick={handleLogout}
               className="inline-flex items-center gap-1 text-sm text-[var(--foreground)] opacity-60 hover:opacity-100 transition-opacity"
@@ -944,25 +944,25 @@ export default function PartnerConfigEditor() {
               <LogOut className="w-4 h-4" />
               Sign Out
             </button>
-            <span className="text-sm text-[var(--foreground)] opacity-60">
+            <span className="text-sm text-[var(--foreground)] opacity-60 truncate">
               {user?.email}
             </span>
           </div>
-          <h1 className="text-3xl font-bold text-[var(--foreground)]">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[var(--foreground)]">
             Partner Config Editor
           </h1>
-          <p className="text-[var(--foreground)] opacity-70 mt-2">
+          <p className="text-sm sm:text-base text-[var(--foreground)] opacity-70 mt-2">
             Configure your partner integration settings for TaskGate
           </p>
-          <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-            <p className="text-sm text-[var(--foreground)] opacity-80">
+          <div className="mt-4 p-3 sm:p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+            <p className="text-xs sm:text-sm text-[var(--foreground)] opacity-80">
               <span className="font-semibold">💡 Development Mode:</span> Your
               config is automatically saved and available in the TaskGate dev
               build for testing. Request access to the dev build below, then
               submit for approval when ready for production.
             </p>
             <Link href={`/contact-us?interest=devbuild&provider=${providerId}`}>
-              <button className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition-opacity">
+              <button className="mt-3 inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-[var(--accent)] text-white text-xs sm:text-sm font-medium hover:opacity-90 transition-opacity">
                 <Download className="w-4 h-4" />
                 Request TaskGate Dev Build
               </button>
@@ -983,14 +983,14 @@ export default function PartnerConfigEditor() {
                 : "bg-yellow-500/10 border-yellow-500/30"
             }`}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="flex items-center gap-3">
                 {approvalStatus.approved ? (
-                  <CheckCircle className="w-6 h-6 text-green-500" />
+                  <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
                 ) : approvalStatus.declined ? (
-                  <X className="w-6 h-6 text-red-500" />
+                  <X className="w-6 h-6 text-red-500 flex-shrink-0" />
                 ) : (
-                  <AlertCircle className="w-6 h-6 text-yellow-500" />
+                  <AlertCircle className="w-6 h-6 text-yellow-500 flex-shrink-0" />
                 )}
                 <div>
                   <h3 className="text-lg font-semibold text-[var(--foreground)]">
@@ -1013,7 +1013,7 @@ export default function PartnerConfigEditor() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {!approvalStatus.approved && (
                   <button
                     onClick={handleCancelReview}
@@ -1492,11 +1492,11 @@ export default function PartnerConfigEditor() {
 
             {/* Icon Preview Section */}
             {(provider.icon_path_light || provider.icon_path_dark) && (
-              <div className="col-span-2 p-4 bg-[var(--background)] rounded-xl border border-[var(--border-color)]">
+              <div className="col-span-1 md:col-span-2 p-3 sm:p-4 bg-[var(--background)] rounded-xl border border-[var(--border-color)]">
                 <label className="block text-sm font-medium text-[var(--foreground)] mb-3">
                   Icon Preview
                 </label>
-                <div className="flex gap-8 flex-wrap">
+                <div className="flex gap-4 sm:gap-8 flex-wrap">
                   {/* Light Mode Preview */}
                   <div className="space-y-2">
                     <p className="text-xs text-[var(--foreground)] opacity-60 text-center">
@@ -1671,23 +1671,23 @@ export default function PartnerConfigEditor() {
               >
                 {/* Task Header */}
                 <div
-                  className="flex items-center justify-between p-4 cursor-pointer hover:bg-[var(--background)] transition-colors"
+                  className="flex items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-[var(--background)] transition-colors gap-2"
                   onClick={() => toggleTaskExpanded(index)}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-mono bg-[var(--accent)] text-white px-2 py-1 rounded">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <span className="text-xs sm:text-sm font-mono bg-[var(--accent)] text-white px-2 py-1 rounded flex-shrink-0">
                       {index + 1}
                     </span>
-                    <div>
-                      <p className="font-medium text-[var(--foreground)]">
+                    <div className="min-w-0">
+                      <p className="font-medium text-[var(--foreground)] text-sm sm:text-base truncate">
                         {task.display_name || "Untitled Task"}
                       </p>
-                      <p className="text-sm text-[var(--foreground)] opacity-60">
+                      <p className="text-xs sm:text-sm text-[var(--foreground)] opacity-60 truncate">
                         {task.id}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1902,7 +1902,7 @@ export default function PartnerConfigEditor() {
                           <label className="block text-sm font-medium text-[var(--foreground)] mb-2">
                             Platform <span className="text-red-500">*</span>
                           </label>
-                          <div className="flex gap-4">
+                          <div className="flex flex-wrap gap-3 sm:gap-4">
                             {PLATFORM_OPTIONS.map((platform) => (
                               <label
                                 key={platform.value}
