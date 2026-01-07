@@ -538,7 +538,7 @@ export default function AdminPage() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className={`fixed top-20 right-4 z-50 px-4 py-3 rounded-lg flex items-center gap-2 ${
+            className={`fixed top-20 left-4 right-4 sm:left-auto sm:right-4 z-50 px-4 py-3 rounded-lg flex items-center gap-2 ${
               notification.type === "success"
                 ? "bg-green-500/90"
                 : "bg-red-500/90"
@@ -556,12 +556,14 @@ export default function AdminPage() {
 
       {/* Header */}
       <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Shield className="w-6 h-6 text-purple-500" />
-            <h1 className="text-xl font-bold">TaskGate Admin</h1>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500 flex-shrink-0" />
+            <h1 className="text-base sm:text-xl font-bold truncate">
+              TaskGate Admin
+            </h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 sm:gap-4 flex-shrink-0">
             <span className="text-gray-400 text-sm hidden sm:block">
               {user.email}
             </span>
@@ -605,17 +607,17 @@ export default function AdminPage() {
       </header>
 
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex gap-2 mb-6 border-b border-gray-700">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+        <div className="flex gap-1 sm:gap-2 mb-4 sm:mb-6 border-b border-gray-700 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveTab("pending")}
-            className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
+            className={`px-3 sm:px-4 py-2 sm:py-3 font-medium transition-colors border-b-2 -mb-px whitespace-nowrap text-sm sm:text-base ${
               activeTab === "pending"
                 ? "text-purple-400 border-purple-400"
                 : "text-gray-400 border-transparent hover:text-white"
             }`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <Clock className="w-4 h-4" />
               Pending
               {pendingReviews.length > 0 && (
@@ -627,13 +629,13 @@ export default function AdminPage() {
           </button>
           <button
             onClick={() => setActiveTab("approved")}
-            className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
+            className={`px-3 sm:px-4 py-2 sm:py-3 font-medium transition-colors border-b-2 -mb-px whitespace-nowrap text-sm sm:text-base ${
               activeTab === "approved"
                 ? "text-purple-400 border-purple-400"
                 : "text-gray-400 border-transparent hover:text-white"
             }`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <CheckCircle className="w-4 h-4" />
               Approved
               {approvedReviews.length > 0 && (
@@ -645,13 +647,13 @@ export default function AdminPage() {
           </button>
           <button
             onClick={() => setActiveTab("declined")}
-            className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
+            className={`px-3 sm:px-4 py-2 sm:py-3 font-medium transition-colors border-b-2 -mb-px whitespace-nowrap text-sm sm:text-base ${
               activeTab === "declined"
                 ? "text-purple-400 border-purple-400"
                 : "text-gray-400 border-transparent hover:text-white"
             }`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <XCircle className="w-4 h-4" />
               Declined
               {declinedReviews.length > 0 && (
@@ -683,7 +685,7 @@ export default function AdminPage() {
             <p className="text-gray-400">No {activeTab} reviews</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {currentReviews.map((review) => (
               <motion.div
                 key={review.id}
@@ -693,18 +695,18 @@ export default function AdminPage() {
               >
                 {/* Card Header */}
                 <div
-                  className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-750"
+                  className="p-3 sm:p-4 flex items-center justify-between cursor-pointer hover:bg-gray-750 gap-2"
                   onClick={() => toggleCardExpand(review.id)}
                 >
-                  <div>
-                    <h3 className="font-semibold text-lg">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-semibold text-base sm:text-lg truncate">
                       {review.provider?.name || review.id}
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm truncate">
                       ID: <code className="text-purple-400">{review.id}</code>
                     </p>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     <span className="text-gray-400 text-sm hidden md:block">
                       {formatDate(review.submitted_at)}
                     </span>
@@ -725,9 +727,9 @@ export default function AdminPage() {
                       exit={{ height: 0, opacity: 0 }}
                       className="border-t border-gray-700"
                     >
-                      <div className="p-4">
+                      <div className="p-3 sm:p-4">
                         {/* Info Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
                           <div className="bg-gray-900/50 rounded-lg p-3">
                             <p className="text-gray-400 text-xs mb-1">
                               Submitted By
@@ -745,7 +747,7 @@ export default function AdminPage() {
                             </p>
                           </div>
                           {review.provider?.tagline && (
-                            <div className="bg-gray-900/50 rounded-lg p-3 md:col-span-2">
+                            <div className="bg-gray-900/50 rounded-lg p-3 col-span-1 md:col-span-2">
                               <p className="text-gray-400 text-xs mb-1">
                                 Tagline
                               </p>
@@ -757,21 +759,21 @@ export default function AdminPage() {
 
                           {/* App Icon Previews */}
                           {review.provider?.icon_path_light && (
-                            <div className="bg-gray-900/50 rounded-lg p-4 md:col-span-2">
-                              <p className="text-gray-400 text-xs mb-3">
+                            <div className="bg-gray-900/50 rounded-lg p-3 sm:p-4 col-span-1 md:col-span-2">
+                              <p className="text-gray-400 text-xs mb-2 sm:mb-3">
                                 App Icons
                               </p>
-                              <div className="flex gap-8 flex-wrap">
+                              <div className="flex gap-4 sm:gap-8 flex-wrap">
                                 {/* Light Mode */}
                                 <div>
                                   <p className="text-gray-500 text-xs mb-2 text-center">
-                                    Light Mode
+                                    Light
                                   </p>
-                                  <div className="flex gap-3 items-end">
+                                  <div className="flex gap-2 sm:gap-3 items-end">
                                     {/* Android */}
                                     <div className="text-center">
                                       <div
-                                        className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
+                                        className="w-10 h-10 sm:w-14 sm:h-14 rounded-full overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
                                         style={{
                                           backgroundColor: review.provider
                                             ?.icon_background_img_light
@@ -795,18 +797,18 @@ export default function AdminPage() {
                                               review.provider.icon_path_light
                                             }
                                             alt="Android"
-                                            className="w-9 h-9 object-contain"
+                                            className="w-6 h-6 sm:w-9 sm:h-9 object-contain"
                                           />
                                         )}
                                       </div>
-                                      <p className="text-gray-500 text-[10px] mt-1">
+                                      <p className="text-gray-500 text-[10px] mt-1 hidden sm:block">
                                         Android
                                       </p>
                                     </div>
                                     {/* iOS */}
                                     <div className="text-center">
                                       <div
-                                        className="w-14 h-14 rounded-[12px] overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
+                                        className="w-10 h-10 sm:w-14 sm:h-14 rounded-[10px] sm:rounded-[12px] overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
                                         style={{
                                           backgroundColor: review.provider
                                             ?.icon_background_img_light
@@ -830,11 +832,11 @@ export default function AdminPage() {
                                               review.provider.icon_path_light
                                             }
                                             alt="iOS"
-                                            className="w-9 h-9 object-contain"
+                                            className="w-6 h-6 sm:w-9 sm:h-9 object-contain"
                                           />
                                         )}
                                       </div>
-                                      <p className="text-gray-500 text-[10px] mt-1">
+                                      <p className="text-gray-500 text-[10px] mt-1 hidden sm:block">
                                         iOS
                                       </p>
                                     </div>
@@ -844,13 +846,13 @@ export default function AdminPage() {
                                 {/* Dark Mode */}
                                 <div>
                                   <p className="text-gray-500 text-xs mb-2 text-center">
-                                    Dark Mode
+                                    Dark
                                   </p>
-                                  <div className="flex gap-3 items-end">
+                                  <div className="flex gap-2 sm:gap-3 items-end">
                                     {/* Android */}
                                     <div className="text-center">
                                       <div
-                                        className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
+                                        className="w-10 h-10 sm:w-14 sm:h-14 rounded-full overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
                                         style={{
                                           backgroundColor: review.provider
                                             ?.icon_background_img_dark
@@ -875,17 +877,17 @@ export default function AdminPage() {
                                               : review.provider?.icon_path_light
                                           }
                                           alt="Android"
-                                          className="w-9 h-9 object-contain"
+                                          className="w-6 h-6 sm:w-9 sm:h-9 object-contain"
                                         />
                                       </div>
-                                      <p className="text-gray-500 text-[10px] mt-1">
+                                      <p className="text-gray-500 text-[10px] mt-1 hidden sm:block">
                                         Android
                                       </p>
                                     </div>
                                     {/* iOS */}
                                     <div className="text-center">
                                       <div
-                                        className="w-14 h-14 rounded-[12px] overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
+                                        className="w-10 h-10 sm:w-14 sm:h-14 rounded-[10px] sm:rounded-[12px] overflow-hidden flex items-center justify-center shadow-lg border border-gray-600"
                                         style={{
                                           backgroundColor: review.provider
                                             ?.icon_background_img_dark
@@ -910,10 +912,10 @@ export default function AdminPage() {
                                               : review.provider?.icon_path_light
                                           }
                                           alt="iOS"
-                                          className="w-9 h-9 object-contain"
+                                          className="w-6 h-6 sm:w-9 sm:h-9 object-contain"
                                         />
                                       </div>
-                                      <p className="text-gray-500 text-[10px] mt-1">
+                                      <p className="text-gray-500 text-[10px] mt-1 hidden sm:block">
                                         iOS
                                       </p>
                                     </div>
@@ -924,7 +926,7 @@ export default function AdminPage() {
                           )}
 
                           {review.tasks && (
-                            <div className="bg-gray-900/50 rounded-lg p-3 md:col-span-2">
+                            <div className="bg-gray-900/50 rounded-lg p-3 col-span-1 md:col-span-2">
                               <p className="text-gray-400 text-xs mb-1">
                                 Tasks ({review.tasks.length})
                               </p>
@@ -941,7 +943,7 @@ export default function AdminPage() {
                             </div>
                           )}
                           {review.approved && (
-                            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 md:col-span-2">
+                            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 col-span-1 md:col-span-2">
                               <p className="text-green-400 text-xs mb-1">
                                 Approved
                               </p>
@@ -952,7 +954,7 @@ export default function AdminPage() {
                             </div>
                           )}
                           {review.declined && (
-                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 md:col-span-2">
+                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 col-span-1 md:col-span-2">
                               <p className="text-red-400 text-xs mb-1">
                                 Declined
                               </p>
@@ -965,46 +967,50 @@ export default function AdminPage() {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-700">
+                        <div className="flex flex-wrap gap-2 pt-3 sm:pt-4 border-t border-gray-700">
                           <button
                             onClick={() => setPreviewConfig(review)}
-                            className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
                           >
                             <Eye className="w-4 h-4" />
-                            View JSON
+                            <span className="hidden xs:inline">View</span> JSON
                           </button>
                           <button
                             onClick={() => copyToClipboard(review)}
-                            className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
                           >
                             <Copy className="w-4 h-4" />
-                            Copy JSON
+                            <span className="hidden xs:inline">Copy</span>
                           </button>
                           {activeTab === "pending" && (
                             <>
                               <button
                                 onClick={() => handleApprove(review.id)}
                                 disabled={actionLoading[review.id]}
-                                className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors disabled:opacity-50"
+                                className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors disabled:opacity-50 text-sm"
                               >
                                 {actionLoading[review.id] === "approve" ? (
                                   <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-white"></div>
                                 ) : (
                                   <CheckCircle className="w-4 h-4" />
                                 )}
-                                Approve
+                                <span className="hidden xs:inline">
+                                  Approve
+                                </span>
                               </button>
                               <button
                                 onClick={() => handleDecline(review.id)}
                                 disabled={actionLoading[review.id]}
-                                className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors disabled:opacity-50"
+                                className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors disabled:opacity-50 text-sm"
                               >
                                 {actionLoading[review.id] === "decline" ? (
                                   <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-white"></div>
                                 ) : (
                                   <XCircle className="w-4 h-4" />
                                 )}
-                                Decline
+                                <span className="hidden xs:inline">
+                                  Decline
+                                </span>
                               </button>
                             </>
                           )}
@@ -1012,14 +1018,15 @@ export default function AdminPage() {
                             <button
                               onClick={() => handleMoveToPending(review.id)}
                               disabled={actionLoading[review.id]}
-                              className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg transition-colors disabled:opacity-50 text-sm"
                             >
                               {actionLoading[review.id] === "pending" ? (
                                 <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-white"></div>
                               ) : (
                                 <Undo2 className="w-4 h-4" />
                               )}
-                              Move to Pending
+                              <span className="hidden xs:inline">Move to</span>{" "}
+                              Pending
                             </button>
                           )}
                           {(activeTab === "approved" ||
@@ -1027,7 +1034,7 @@ export default function AdminPage() {
                             <button
                               onClick={() => handleDelete(review.id)}
                               disabled={actionLoading[review.id]}
-                              className="flex items-center gap-2 px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 rounded-lg transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 rounded-lg transition-colors disabled:opacity-50 text-sm"
                             >
                               {actionLoading[review.id] === "delete" ? (
                                 <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-red-400"></div>
@@ -1118,57 +1125,82 @@ export default function AdminPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4"
             onClick={() => setShowExportModal(false)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[85vh] overflow-hidden flex flex-col border border-gray-700 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                <div>
-                  <h3 className="font-semibold text-lg">
-                    Export Production Config
-                  </h3>
-                  <p className="text-gray-400 text-sm">
-                    {approvedReviews.length} providers,{" "}
-                    {approvedReviews.reduce(
-                      (sum, r) => sum + (r.tasks?.length || 0),
-                      0
-                    )}{" "}
-                    tasks
-                  </p>
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 border-b border-gray-700 bg-gray-800/50 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                    <FileJson className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">
+                      Export Production Config
+                    </h3>
+                    <p className="text-gray-400 text-sm">
+                      {approvedReviews.length} provider
+                      {approvedReviews.length !== 1 ? "s" : ""} •{" "}
+                      {approvedReviews.reduce(
+                        (sum, r) => sum + (r.tasks?.length || 0),
+                        0
+                      )}{" "}
+                      task
+                      {approvedReviews.reduce(
+                        (sum, r) => sum + (r.tasks?.length || 0),
+                        0
+                      ) !== 1
+                        ? "s"
+                        : ""}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={copyCompleteJson}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors text-sm"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors text-sm"
                   >
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-3.5 h-3.5" />
                     Copy
                   </button>
                   <button
                     onClick={downloadCompleteJson}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded-lg transition-colors text-sm"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded-lg transition-colors text-sm"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-3.5 h-3.5" />
                     Download
                   </button>
                   <button
                     onClick={() => setShowExportModal(false)}
-                    className="p-2 text-gray-400 hover:text-white"
+                    className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
               </div>
-              <div className="overflow-auto flex-1 p-4">
-                <pre className="text-sm text-gray-300 font-mono whitespace-pre-wrap">
-                  {JSON.stringify(generateCompleteJson(), null, 2)}
-                </pre>
+
+              {/* Content */}
+              <div className="overflow-auto flex-1 p-4 sm:p-5 bg-gray-900/50">
+                <div className="bg-gray-950 rounded-xl border border-gray-700 p-4 overflow-x-auto">
+                  <pre className="text-xs sm:text-sm text-gray-300 font-mono whitespace-pre">
+                    {JSON.stringify(generateCompleteJson(), null, 2)}
+                  </pre>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-4 sm:p-5 border-t border-gray-700 bg-gray-800/50">
+                <p className="text-xs text-gray-500 text-center">
+                  This JSON includes all approved partner configs plus TaskGate
+                  defaults
+                </p>
               </div>
             </motion.div>
           </motion.div>

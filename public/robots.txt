@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://taskgate.co/sitemap.xml
+
+# Block admin and partner routes
+Disallow: /admin
+Disallow: /partner
