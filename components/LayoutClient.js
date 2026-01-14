@@ -15,7 +15,7 @@ const MetaPixelNoSSR = dynamic(() => import("@/components/MetaPixelEvents"), {
 export default function LayoutClient({ children }) {
   const pathname = usePathname();
   const isAdminRoute = pathname?.startsWith("/admin");
-  const isPartnerRoute = pathname?.startsWith("/partner");
+  const isPartnerRoute = pathname?.startsWith("/partner/");
   const hideNavFooter = isAdminRoute || isPartnerRoute;
 
   const pageVariants = {

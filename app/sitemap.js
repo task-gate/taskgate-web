@@ -7,6 +7,7 @@ export default function sitemap() {
     "/about-us",
     "/contact-us",
     "/developers",
+    "/download",
     "/features",
     "/partnership",
     "/premium",

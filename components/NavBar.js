@@ -50,7 +50,7 @@ const Navbar = () => {
           TaskGate
         </Link>
 
-        <ul className="hidden md:flex space-x-12">
+        <ul className="hidden md:flex space-x-6 lg:space-x-8">
           <li>
             <Link
               href="/features"
@@ -73,6 +73,11 @@ const Navbar = () => {
           <li>
             <Link href="/developers" className={isActive("/developers")}>
               Developers
+            </Link>
+          </li>
+          <li>
+            <Link href="/download" className={isActive("/download")}>
+              Download
             </Link>
           </li>
           {/* <li>
@@ -175,6 +180,15 @@ const Navbar = () => {
               onClick={toggleMenu}
             >
               Developers
+            </Link>
+          </li>
+          <li className="text-3xl">
+            <Link
+              href="/download"
+              className={isActive("/download")}
+              onClick={toggleMenu}
+            >
+              Download
             </Link>
           </li>
           {/* <li className="text-3xl">
