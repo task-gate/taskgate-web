@@ -1,4 +1,6 @@
-import TermsContent from "@/components/TermsContent";
+const fs = require('fs');
+
+const content = `import TermsContent from "@/components/TermsContent";
 
 export const metadata = {
   title: "Terms and Conditions | TaskGate",
@@ -43,4 +45,7 @@ export const metadata = {
 export default function TermsAndConditionsPage() {
   return <TermsContent />;
 }
+`;
 
+fs.writeFileSync('/Users/hawk2/Desktop/development/taskgate/taskgate-web-landing/app/terms-and-conditions/page.js', content);
+console.log('Done writing terms-and-conditions/page.js');
