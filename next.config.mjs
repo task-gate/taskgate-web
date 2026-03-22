@@ -7,6 +7,17 @@ const nextConfig = {
   images: {
     qualities: [25, 50, 75, 100],
   },
+  async headers() {
+    return [
+      {
+        source: "/.well-known/apple-app-site-association",
+        headers: [
+          { key: "Content-Type", value: "application/json" },
+          { key: "Cache-Control", value: "public, max-age=3600" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // Redirect www to non-www (backup for middleware)
