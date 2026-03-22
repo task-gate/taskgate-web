@@ -1,0 +1,22 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tkg.taskgate",
+      "sha256_cert_fingerprints": [
+        "B7:F2:B2:E7:49:15:97:E4:6E:84:4B:00:4C:BC:86:6B:F8:DF:D0:05:6C:01:65:00:4E:08:4B:C6:66:35:5A:2C"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tkg.taskgate.dev",
+      "sha256_cert_fingerprints": [
+        "79:6E:D2:A3:B3:C8:09:3A:3A:EE:20:53:20:E1:35:73:D2:E0:FF:61:14:22:CC:C3:E4:C4:7B:6F:60:CC:7B:41"
+      ]
+    }
+  }
+]
