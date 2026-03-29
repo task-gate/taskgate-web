@@ -33,10 +33,10 @@ const Navbar = () => {
       initial="hidden"
       animate="visible"
     >
-      <article className="p-4 px-5 md:px-[5%] w-full mx-auto flex items-center justify-between">
+      <article className="relative p-4 px-5 md:px-[5%] w-full mx-auto flex items-center justify-between md:min-h-[80px] md:justify-center">
         <Link
           href="/"
-          className="flex items-center cursor-pointer font-ubuntu text-white md:text-xl font-bold"
+          className="flex items-center cursor-pointer font-ubuntu text-white md:text-xl font-bold md:absolute md:left-[5%] md:top-1/2 md:-translate-y-1/2"
           onClick={() => setIsOpen(false)}
         >
           <Image
@@ -50,7 +50,7 @@ const Navbar = () => {
           TaskGate
         </Link>
 
-        <ul className="hidden md:flex space-x-6 lg:space-x-8">
+        <ul className="hidden md:flex md:items-center space-x-6 lg:space-x-8">
           <li>
             <Link
               href="/features"
@@ -71,8 +71,13 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/developers" className={isActive("/developers")}>
-              Developers
+            <Link href="/docs" className={isActive("/docs")}>
+              Docs
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources" className={isActive("/resources")}>
+              Resources
             </Link>
           </li>
           <li>
@@ -85,11 +90,6 @@ const Navbar = () => {
               Premium
             </Link>
           </li> */}
-          <li>
-            <Link href="/contact-us" className={isActive("/contact-us")}>
-              Contact
-            </Link>
-          </li>
         </ul>
 
         {/* Mobile Menu Button */}
@@ -175,11 +175,20 @@ const Navbar = () => {
           </li>
           <li className="text-3xl">
             <Link
-              href="/developers"
-              className={isActive("/developers")}
+              href="/docs"
+              className={isActive("/docs")}
               onClick={toggleMenu}
             >
-              Developers
+              Docs
+            </Link>
+          </li>
+          <li className="text-3xl">
+            <Link
+              href="/resources"
+              className={isActive("/resources")}
+              onClick={toggleMenu}
+            >
+              Resources
             </Link>
           </li>
           <li className="text-3xl">
@@ -200,15 +209,6 @@ const Navbar = () => {
               Premium
             </Link>
           </li> */}
-          <li className="text-3xl">
-            <Link
-              href="/contact-us"
-              className={isActive("/contact-us")}
-              onClick={toggleMenu}
-            >
-              Contact
-            </Link>
-          </li>
         </ul>
       </motion.article>
     </motion.nav>

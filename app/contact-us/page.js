@@ -20,14 +20,6 @@ export const metadata = {
       "Have questions about TaskGate? Contact our team for support, partnership inquiries, or developer assistance.",
     url: "https://taskgate.co/contact-us",
     siteName: "TaskGate",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "TaskGate — Contact Us",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -36,7 +28,6 @@ export const metadata = {
     title: "Contact Us | TaskGate — Get in Touch",
     description:
       "Have questions about TaskGate? Contact our team for support, partnership inquiries, or developer assistance.",
-    images: ["/og.png"],
   },
 };
 

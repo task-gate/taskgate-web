@@ -8,9 +8,11 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import { MdOutlineWifiFind } from "react-icons/md";
 import { TbClockRecord } from "react-icons/tb";
 import OurStory from "@/components/OurStory";
+import FounderSection from "@/components/FounderSection";
 import Legacy from "@/components/Legacy";
 import Testimonial from "@/components/Testimonial";
 import FaqsWhite from "@/components/FaqsWhite";
+import faqsAbout from "@/components/data/faqsAbout";
 import CoreValues from "@/components/CoreValue";
 import AppStoreDownloadButton from "@/components/AppStoreDownloadButton";
 import GooglePlayDownloadButton from "@/components/GooglePlayDownloadButton";
@@ -107,9 +109,17 @@ export default function AboutContent() {
             </h2>
             <span className="w-16 h-1 mt-3 bg-gradient-to-r from-accent to-purple-600 rounded-full" />
           </div>
+          <p className="mt-6 max-w-3xl text-center text-base leading-relaxed text-black/80 md:text-left">
+            Our approach draws on habit research: adding a little friction
+            before a reward can interrupt automatic loops, and tying actions to
+            concrete cues (implementation intentions) makes new routines easier
+            to repeat. TaskGate turns those ideas into a simple pause between
+            impulse and app open—so &ldquo;I&apos;ll scroll for a minute&rdquo;
+            becomes a conscious choice.
+          </p>
           <div className=" text-left w-full max-w-3xl mt-8 space-y-10">
             <div>
-              <h3 className="text-xl font-bold">📱 Break the Scroll Cycle</h3>
+              <h3 className="text-xl font-bold">Break the scroll cycle</h3>
               <p>
                 No judgment, just awareness. TaskGate tracks your app usage
                 patterns and creates gentle interruptions that help you pause
@@ -119,7 +129,7 @@ export default function AboutContent() {
             </div>
             <div>
               <h3 className="text-xl font-bold">
-                🧘 Mindfulness Meets Productivity
+                Mindfulness meets productivity
               </h3>
               <p>
                 Transform every app open into an opportunity for intentional
@@ -129,7 +139,7 @@ export default function AboutContent() {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-bold">📊 Insights Without Shame</h3>
+              <h3 className="text-xl font-bold">Insights without shame</h3>
               <p>
                 Knowledge is power, but only when it&apos;s used with
                 compassion. TaskGate provides clear insights into your digital
@@ -168,9 +178,10 @@ export default function AboutContent() {
       </motion.article>
       <OurStory />
       <CoreValues />
+      <FounderSection />
       <Legacy />
       <Testimonial />
-      <FaqsWhite />
+      <FaqsWhite items={faqsAbout} heading="About TaskGate" />
     </>
   );
 }

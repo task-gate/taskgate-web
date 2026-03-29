@@ -7,20 +7,36 @@ const ReadyToStart = () => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.8 } }}
-      className="relative z-10 w-full bg-white text-gray-900"
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="relative z-10 w-full bg-[#080c14] text-white overflow-hidden"
     >
-      <article className="container mx-auto pb-14 md:pb-32 p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px] flex flex-col md:flex-row items-start justify-between gap-12">
-        <div className="flex flex-col gap-8 items-start justify-center">
-          <h2 className="text-h3 lg:text-h4 font-bold text-left lg:max-w-none max-w-[80%] leading-relaxed">
-            Ready to Transform Your Digital Habits?
+      {/* Divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      {/* Glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-accent/10 rounded-full blur-[100px]" />
+      </div>
+
+      <article className="relative z-10 container mx-auto py-20 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px] flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+        <div className="flex flex-col gap-5 max-w-xl">
+          <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
+            Get Started
+          </p>
+          <h2 className="text-h3 lg:text-h4 font-bold leading-tight text-white">
+            Ready to Transform
+            <br />
+            Your Digital Habits?
           </h2>
-          <p className="text-left max-w-[80%] leading-8">
-            Begin your conscious digital living journey today—your manifestation
-            practice starts with TaskGate!
+          <p className="text-white/45 text-sm leading-relaxed">
+            Begin your conscious digital living journey today—your intentional
+            practice starts with TaskGate.
           </p>
         </div>
-        <div className="self-start md:self-end">
+
+        <div className="flex flex-col sm:flex-row md:flex-col gap-3 flex-shrink-0">
           <AppStoreDownloadButton />
           <GooglePlayDownloadButton />
         </div>

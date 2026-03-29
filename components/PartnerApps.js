@@ -1,12 +1,10 @@
-"use client";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, Zap } from "lucide-react";
 
 const partnerApps = [
   {
     name: "Law of Attraction",
-    description: "Manifestation and affirmation exercises",
+    description: "Guided partner tasks and integrations",
     icon: "/partners/loa.png",
     isImage: true,
     category: "Wellness",
@@ -50,23 +48,11 @@ const partnerApps = [
   },
 ];
 
-const PartnerApps = () => {
+export default function PartnerApps() {
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="relative py-20 bg-transparent"
-    >
+    <section className="relative py-20 bg-[#080c14]">
       <div className="relative z-20 max-w-6xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-gradient-to-r from-accent/10 to-purple-600/10 border border-accent/30">
             <Zap className="w-4 h-4 text-accent" />
             <span className="bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent font-medium text-sm">
@@ -76,28 +62,21 @@ const PartnerApps = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
             Connect With Partner Apps
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
             Transform impulsive scrolling into productive habits by connecting
             with your favorite apps. Complete mini-tasks from partner apps and
             get redirected back automatically—making every app open an
             opportunity to learn, grow, or stay healthy.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-          {partnerApps.map((app, index) => (
-            <motion.div
-              key={app.name}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="group relative flex h-full"
-            >
+          {partnerApps.map((app) => (
+            <div key={app.name} className="group relative flex h-full">
               <a
                 href={app.link || "#"}
                 target={app.link ? "_blank" : "_self"}
-                rel={app.link ? "noopener noreferrer" : ""}
+                rel={app.link ? "noopener noreferrer" : undefined}
                 className={`flex flex-col w-full p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/50 hover:bg-white/10 transition-all duration-300 ${
                   app.link ? "cursor-pointer" : ""
                 }`}
@@ -135,7 +114,7 @@ const PartnerApps = () => {
                         </span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-400 leading-relaxed line-clamp-2">
+                    <p className="text-sm text-white/55 leading-relaxed line-clamp-2">
                       {app.description}
                     </p>
                   </div>
@@ -147,36 +126,28 @@ const PartnerApps = () => {
                   </div>
                 )}
               </a>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="mt-16 text-center"
-        >
+        <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-accent/10 to-purple-500/10 border border-accent/20 rounded-xl p-8">
             <h3 className="text-2xl font-bold mb-4 text-white">
               Want to Become a Partner?
             </h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-white/65 mb-6 max-w-2xl mx-auto">
               Integrate your app with TaskGate and help users build better
               habits while discovering your product. Our deep link API makes
               integration simple and seamless.
             </p>
             <a href="/contact-us?interest=partnership">
-              <button className="px-8 py-3 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity shadow-lg hover:shadow-xl">
+              <span className="inline-block px-8 py-3 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity shadow-lg hover:shadow-xl">
                 Join Our Partner Program
-              </button>
+              </span>
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
-};
-
-export default PartnerApps;
+}

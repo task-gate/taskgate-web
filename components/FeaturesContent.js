@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Testimonial from "@/components/Testimonial";
 import FaqsWhite from "@/components/FaqsWhite";
+import faqsFeatures from "@/components/data/faqsFeatures";
 import Feature from "@/components/Features";
 import ReadyToStart from "@/components/Ready";
 
@@ -19,7 +20,10 @@ export default function FeaturesContent() {
         <Feature />
         <ReadyToStart />
         <Testimonial />
-        <FaqsWhite />
+        <FaqsWhite
+          items={faqsFeatures}
+          heading="Questions about features"
+        />
       </div>
     </>
   );

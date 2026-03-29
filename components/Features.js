@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { CheckCircle2 } from "lucide-react";
 
 const features = [
   {
@@ -61,65 +62,82 @@ const features = [
 
 const Feature = () => {
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.8 } }}
-      className="relative z-10 w-full bg-transparent text-white"
-    >
-      <article className="container mx-auto py-14 p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px] gap-4flex flex-col items-center justify-center gap-4">
-        <div className="flex flex-col items-center justify-center">
-          <h2 className="text-h2 lg:text-h3 font-bold text-center max-w-[80%]">
+    <section className="relative w-full bg-[#080c14] text-white overflow-hidden">
+      {/* Atmospheric glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-accent/10 rounded-full blur-[130px]" />
+      </div>
+
+      <div className="relative z-10 container mx-auto py-24 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px]">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
+        >
+          <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-5">
+            What You Get
+          </p>
+          <h2 className="text-h2 lg:text-h1 font-bold text-white mb-6 leading-tight">
             Features & Benefits
           </h2>
-          <span className="w-16 h-1 mt-3 bg-gradient-to-r from-accent to-purple-600 rounded-full" />
+          <div className="w-12 h-0.5 bg-gradient-to-r from-accent to-purple-600 rounded-full mx-auto mb-8" />
+          <p className="text-white/45 max-w-2xl mx-auto leading-relaxed text-lg">
+            TaskGate is your personalized habit-building companion that helps
+            you replace impulsive scrolling with intentional actions—one mindful
+            moment at a time.
+          </p>
+        </motion.div>
 
-          <article className="flex flex-col items-center justify-center mt-16">
-            <p className="mt-5 text-justify md:max-w-[60%] md:text-center text-white/90">
-              TaskGate is your personalized habit-building companion that helps
-              you replace impulsive scrolling with intentional actions.
-              Customize your experience, track your progress, and build lasting
-              digital wellness habits that actually stick—one mindful moment at
-              a time.
-            </p>
-          </article>
-        </div>
-        <div className="mt-16 lg:mt-26 max-w-[1000px] mx-auto grid grid-cols-1 gap-5">
-          {features.map((paragraph, index) => (
-            <motion.article
-              key={paragraph.id}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
-              viewport={{ once: true }}
-              className={`mt-2 items-center flex flex-col mx-auto md:justify-between gap-4 p-4 py-10 border-b-2 last:border-b-0 border-silver ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+        {/* Feature list */}
+        <div className="divide-y divide-white/[0.06]">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6 }}
+              className={`flex flex-col lg:items-center gap-10 lg:gap-16 py-16 lg:py-20 ${
+                index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
               }`}
             >
-              <div className="w-[30%] md:w-[20%] flex items-center justify-center">
+              {/* Phone image */}
+              <div className="flex justify-center lg:w-[38%]">
                 <Image
-                  src={`/mock/mock${parseInt(paragraph.id) + 2}.png`}
-                  alt={paragraph.title}
+                  src={`/mock/mock${parseInt(feature.id) + 2}.png`}
+                  alt={feature.title}
                   width={300}
                   height={600}
-                  className="w-full h-auto rounded-2xl shadow-2xl"
+                  className="w-auto max-w-[180px] lg:max-w-[220px] h-auto rounded-3xl shadow-2xl"
                 />
               </div>
-              <div className="flex flex-col items-start">
-                <h4 className="text-h5 font-bold mt-5 lg:mt0 lg:text-left text-center bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent">
-                  {paragraph.title}
-                </h4>
-                <ul className="mt-2 px-4 text-center lg:text-left">
-                  {paragraph.desc.map((item, index) => (
-                    <li key={index} className="text-left list-disc">
-                      {item}
-                    </li>
+
+              {/* Text content */}
+              <div className="lg:w-[62%]">
+                <span className="text-white/15 text-7xl font-bold tabular-nums leading-none block mb-2 select-none">
+                  {feature.id}
+                </span>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent leading-tight">
+                  {feature.title}
+                </h3>
+                <div className="space-y-4">
+                  {feature.desc.map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-white/55 text-sm leading-relaxed">
+                        {item}
+                      </span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            </motion.article>
+            </motion.div>
           ))}
         </div>
-      </article>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

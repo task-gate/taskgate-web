@@ -21,14 +21,6 @@ export const metadata = {
       "Join the TaskGate partner program to reach engaged users building better digital habits. Integrate your app as a mindful task.",
     url: "https://taskgate.co/partnership",
     siteName: "TaskGate",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "TaskGate — Partnership Program",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -37,7 +29,6 @@ export const metadata = {
     title: "Partner With TaskGate | Grow Your App",
     description:
       "Join the TaskGate partner program to reach engaged users building better digital habits. Integrate your app as a mindful task.",
-    images: ["/og.png"],
   },
 };
 

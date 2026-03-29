@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@floating-ui/utils": "^0.2.9",
@@ -29,7 +30,6 @@
     "react-icons": "^5.5.0",
     "react-international-phone": "^4.3.0",
     "react-loader-spinner": "^6.1.6",
-    "react-phone-number-input": "^3.4.12",
     "react-typed": "^2.0.12",
     "uuid": "^11.1.0",
     "yup": "^1.6.1"

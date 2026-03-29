@@ -49,7 +49,7 @@ git push origin v2.0.0
     <li><a href="https://tailwindcss.com/">Tailwind CSS</a></li>
     <li><a href="https://formik.org/">Formik</a></li>
     <li><a href="https://github.com/jquense/yup">Yup</a></li>
-    <li><a href="https://www.npmjs.com/package/react-phone-number-input">react-phone-number-input</a></li>
+    <li><a href="https://www.npmjs.com/package/react-international-phone">react-international-phone</a> (phone field on Contact)</li>
     <li><a href="https://framer.com/motion">Framer Motion</a></li>
   </ul>
 </details>
@@ -163,6 +163,12 @@ service cloud.firestore {
 
 ```sh
   npm run dev  # or yarn dev
+```
+
+After a production deploy you can optionally notify search engines via IndexNow:
+
+```sh
+npm run indexnow
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

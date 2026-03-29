@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import ContactFAB from "@/components/ContactFAB";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { usePathname } from "next/navigation";
@@ -56,9 +57,12 @@ export default function LayoutClient({ children }) {
       </motion.main>
 
       {!hideNavFooter && (
-        <div className="relative z-10">
-          <Footer />
-        </div>
+        <>
+          <div className="relative z-10">
+            <Footer />
+          </div>
+          <ContactFAB />
+        </>
       )}
     </>
   );

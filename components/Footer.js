@@ -1,16 +1,12 @@
 "use strict";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 const Footer = () => {
-  const [currentYear, setCurrentYear] = useState(null);
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+  const [currentYear] = useState(() => new Date().getFullYear());
 
   return (
     <footer className="w-full bg-[#050507] text-white border-t border-white/10 footer">

@@ -1,9 +1,13 @@
+"use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import faqs from "./data/faqs.js";
+import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import defaultFaqs from "./data/faqs.js";
 
-const FaqsWhite = () => {
+const FaqsWhite = ({
+  items = defaultFaqs,
+  heading = "Frequently Asked Questions",
+}) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleAnswer = (index) => {
@@ -11,64 +15,95 @@ const FaqsWhite = () => {
   };
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.8 } }}
-      className="relative z-10 w-full bg-white overflow-hidden"
-    >
-      <article className="container mx-auto py-14 p-4 px-5 md:px-[5%] 2xl:px-0 max-w-5xl flex flex-col items-center justify-center gap-4">
-        <div className="flex flex-col items-center justify-center w-full">
-          <h2 className="text-h2 lg:text-h3 font-bold text-center max-w-[80%]">
-            Frequently Asked Questions (FAQs)
+    <section className="relative z-10 w-full bg-white overflow-hidden">
+      <article className="container mx-auto pt-20 pb-16 px-5 md:px-[5%] 2xl:px-0 max-w-3xl flex flex-col items-center gap-4">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-6 w-full"
+        >
+          <h2 className="text-h2 lg:text-h3 font-bold text-primary mb-4">
+            {heading}
           </h2>
-          <span className="w-16 h-1 mt-3 bg-gradient-to-r from-accent to-purple-600 rounded-full" />
-        </div>
-        <ul className="space-y-4 mt-14 w-full">
-          {faqs.map((faq, index) => (
-            <li key={index}>
-              <div
-                className={`faq-item border-b-2 border-gray-300 p-4 ${
-                  activeIndex === index ? "py-6 px-4" : ""
+          <span className="inline-block w-12 h-0.5 bg-gradient-to-r from-accent to-purple-600 rounded-full" />
+        </motion.div>
+
+        {/* FAQ list */}
+        <ul className="w-full space-y-3 mt-6">
+          {items.map((faq, index) => (
+            <motion.li
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.04 }}
+            >
+              <button
+                onClick={() => toggleAnswer(index)}
+                className={`w-full text-left rounded-xl border transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${
+                  activeIndex === index
+                    ? "bg-accent/5 border-accent/20"
+                    : "bg-bg-secondary border-border hover:border-accent/30 hover:bg-white"
                 }`}
               >
-                <div className="flex justify-between items-start py-3">
-                  <div className="faq-question cursor-pointer max-w-[90%]">
-                    <span className="text-lg font-semibold">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <button
-                    className="toggle-button"
-                    onClick={() => toggleAnswer(index)}
+                {/* Question row */}
+                <div className="flex items-center justify-between px-5 py-4 gap-4">
+                  <span
+                    className={`text-base font-semibold leading-snug transition-colors duration-200 ${
+                      activeIndex === index ? "text-accent" : "text-primary"
+                    }`}
                   >
-                    {activeIndex === index ? (
-                      <MdKeyboardArrowUp className="w-8 h-8" />
-                    ) : (
-                      <MdKeyboardArrowDown className="w-8 h-8" />
-                    )}
-                  </button>
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${
+                      activeIndex === index
+                        ? "rotate-180 text-accent"
+                        : "text-secondary"
+                    }`}
+                  />
                 </div>
 
-                <div className="faq-answer mt-">
+                {/* Answer */}
+                <AnimatePresence initial={false}>
                   {activeIndex === index && (
-                    <>
-                      <p className="text-gray-500">{faq?.answer}</p>
-                      {faq?.list && (
-                        <ul className="list-disc pl-6">
-                          {faq.list.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </>
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 pt-1 border-t border-accent/10">
+                        <p className="text-secondary text-sm leading-relaxed">
+                          {faq.answer}
+                        </p>
+                        {faq.list && (
+                          <ul className="list-disc pl-5 mt-3 space-y-1">
+                            {faq.list.map((item, idx) => (
+                              <li
+                                key={idx}
+                                className="text-secondary text-sm leading-relaxed"
+                              >
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </motion.div>
                   )}
-                </div>
-              </div>
-            </li>
+                </AnimatePresence>
+              </button>
+            </motion.li>
           ))}
         </ul>
       </article>
-    </motion.section>
+    </section>
   );
 };
 

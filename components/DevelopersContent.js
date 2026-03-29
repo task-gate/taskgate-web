@@ -1,581 +1,586 @@
 "use client";
 
 import "../app/globals.css";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Code2,
-  ExternalLink,
-  Package,
-  Zap,
-  BookOpen,
-  Terminal,
   ArrowRight,
+  BookOpen,
+  ChevronRight,
+  Cpu,
+  ExternalLink,
+  Layers,
+  Link2,
+  Menu,
+  Rocket,
+  ShieldCheck,
+  X,
 } from "lucide-react";
-import { SiFlutter, SiApple, SiAndroid, SiGithub } from "react-icons/si";
-import { Highlight, themes } from "prism-react-renderer";
+import { SiAndroid, SiApple, SiFlutter, SiGithub } from "react-icons/si";
 
-const CodeBlock = ({ code, language }) => (
-  <Highlight theme={themes.vsDark} code={code.trim()} language={language}>
-    {({ tokens, getLineProps, getTokenProps }) => (
-      <pre
-        style={{
-          backgroundColor: "#1e1e1e",
-          borderRadius: "0.75rem",
-          padding: "1.25rem",
-          fontSize: "0.9rem",
-          lineHeight: "1.6",
-          overflow: "auto",
-          border: "1px solid #333",
-        }}
-      >
-        {tokens.map((line, i) => (
-          <div key={i} {...getLineProps({ line })}>
-            {line.map((token, key) => (
-              <span key={key} {...getTokenProps({ token })} />
-            ))}
-          </div>
-        ))}
-      </pre>
-    )}
-  </Highlight>
-);
-
-const sdks = [
-  {
-    name: "Flutter SDK",
-    platform: "Flutter / Dart",
-    description:
-      "Cross-platform SDK for building TaskGate integrations in Flutter apps. Available on pub.dev with full documentation and examples.",
-    iconType: "flutter",
-    link: "https://pub.dev/packages/taskgate_sdk",
-    linkText: "View on pub.dev",
-    badge: "pub.dev",
-    badgeColor: "from-cyan-500 to-blue-600",
-    installCommand: "flutter pub add taskgate_sdk",
-  },
-  {
-    name: "iOS SDK",
-    platform: "Swift / Objective-C",
-    description:
-      "Native iOS SDK for seamless TaskGate integration in your iOS applications. Supports iOS 13+ with CocoaPods.",
-    iconType: "ios",
-    link: "https://github.com/task-gate/taskgate-sdk-ios",
-    linkText: "View on GitHub",
-    badge: "GitHub",
-    badgeColor: "from-gray-600 to-gray-800",
-    installCommand: "pod 'TaskGateSDK'",
-  },
-  {
-    name: "Android SDK",
-    platform: "Kotlin / Java",
-    description:
-      "Native Android SDK for integrating TaskGate into your Android apps. Supports Android 6.0+ with Gradle dependency.",
-    iconType: "android",
-    link: "https://github.com/task-gate/taskgate-sdk-android",
-    linkText: "View on GitHub",
-    badge: "GitHub",
-    badgeColor: "from-green-500 to-emerald-600",
-    installCommand: 'implementation("co.taskgate:sdk:latest")',
-  },
+const pageAnchors = [
+  { id: "quick-links", label: "Quick links" },
+  { id: "integration-workflow", label: "Workflow" },
+  { id: "sdk-library", label: "SDK library" },
+  { id: "implementation-notes", label: "Implementation notes" },
+  { id: "launch-support", label: "Launch support" },
 ];
 
-const getSdkIcon = (iconType) => {
-  switch (iconType) {
-    case "flutter":
-      return (
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-          <SiFlutter className="w-8 h-8 text-white" />
-        </div>
-      );
-    case "ios":
-      return (
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
-          <SiApple className="w-8 h-8 text-white" />
-        </div>
-      );
-    case "android":
-      return (
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-          <SiAndroid className="w-8 h-8 text-white" />
-        </div>
-      );
-    default:
-      return null;
-  }
+const featuredResource = {
+  href: "/partner",
+  title: "Open the Partner Portal",
+  description:
+    "Create a providerId, configure your app, and move from testing to production approval in one place.",
+  icon: Rocket,
+  tag: "Featured",
+  meta: "Start here",
 };
 
-const integrationSteps = [
+const guides = [
   {
-    step: "01",
-    title: "Register & Create Your Provider ID",
+    href: "/partner",
+    title: "Create your providerId",
     description:
-      "Sign up on our Partner Portal to create your account and get your unique providerId instantly. No waiting for approval to start development.",
+      "Register your partner account and get the identifier you will use across your TaskGate integration.",
+    icon: ShieldCheck,
+    tag: "Guide",
+    meta: "Portal setup",
   },
   {
-    step: "02",
-    title: "Get TaskGate Dev Build",
+    href: "/partnership",
+    title: "Review the partner model",
     description:
-      "Request access to the TaskGate development build via the Partner Portal. You'll receive an invite to test your integration with the dev version of TaskGate.",
+      "Understand how partner tasks fit into TaskGate and what the launch process looks like.",
+    icon: Layers,
+    tag: "Guide",
+    meta: "Program overview",
   },
   {
-    step: "03",
-    title: "Configure Your Integration",
+    href: "https://github.com/task-gate",
+    title: "Browse TaskGate GitHub",
     description:
-      "Use the Partner Config Editor to set up your app details, icons, and define your mini-tasks. Changes auto-save so you can iterate quickly.",
+      "See the public SDK repositories and reference material for each supported platform.",
+    icon: SiGithub,
+    tag: "Repo",
+    meta: "Open source",
+    external: true,
   },
   {
-    step: "04",
-    title: "Install the SDK",
+    href: "/contact-us?interest=developer",
+    title: "Talk to developer support",
     description:
-      "Add our SDK to your project using your preferred package manager. Available for Flutter, iOS, and Android.",
-  },
-  {
-    step: "05",
-    title: "Set Up Deep Links",
-    description:
-      "Configure app links (Android) or universal links (iOS) to receive task requests from TaskGate with the task parameters.",
-  },
-  {
-    step: "06",
-    title: "Build & Test Your Mini-Task",
-    description:
-      "Create an engaging mini-task experience in your app. Test the full flow using the TaskGate dev build to ensure everything works.",
-  },
-  {
-    step: "07",
-    title: "Submit for Production",
-    description:
-      "When you're ready, submit your config for approval. Once approved, your app will be live on TaskGate for all users.",
+      "Reach out if you need help with setup, deep linking, testing, or production rollout.",
+    icon: BookOpen,
+    tag: "Support",
+    meta: "Direct contact",
   },
 ];
 
+const sdkResources = [
+  {
+    href: "https://pub.dev/packages/taskgate_sdk",
+    title: "Flutter SDK",
+    description:
+      "Use the Dart package to integrate TaskGate into a cross-platform app with one dependency.",
+    icon: SiFlutter,
+    tag: "SDK",
+    meta: "pub.dev",
+    external: true,
+  },
+  {
+    href: "https://github.com/task-gate/taskgate-sdk-ios",
+    title: "iOS SDK",
+    description:
+      "Native iOS package for apps that need TaskGate task launches, callbacks, and platform-specific behavior.",
+    icon: SiApple,
+    tag: "SDK",
+    meta: "Swift / Obj-C",
+    external: true,
+  },
+  {
+    href: "https://github.com/task-gate/taskgate-sdk-android",
+    title: "Android SDK",
+    description:
+      "Native Android package for integrating app links, task handling, and TaskGate completion callbacks.",
+    icon: SiAndroid,
+    tag: "SDK",
+    meta: "Kotlin / Java",
+    external: true,
+  },
+];
+
+const related = [
+  { href: "/features", label: "Product features", icon: Cpu },
+  { href: "/download", label: "Get the app", icon: ArrowRight },
+  { href: "/contact-us?interest=partnership", label: "Partnership inquiries", icon: Layers },
+];
+
+const workflowSteps = [
+  {
+    title: "Register and generate a providerId",
+    body: "Create a partner account first. That providerId is the stable key for configuration, testing, and submission.",
+  },
+  {
+    title: "Set up the integration in the portal",
+    body: "Add your app identity, links, and task metadata so TaskGate knows how to present and launch your experience.",
+  },
+  {
+    title: "Install the right SDK",
+    body: "Choose Flutter, iOS, or Android depending on your app stack and wire TaskGate into your navigation flow.",
+  },
+  {
+    title: "Configure deep links and callbacks",
+    body: "Make sure TaskGate can launch your app and your app can return a completion callback when the mini-task is done.",
+  },
+  {
+    title: "Test on the TaskGate dev build",
+    body: "Validate launch behavior, task state, and callback handling before you request production approval.",
+  },
+];
+
+const implementationNotes = [
+  {
+    title: "Deep link reliability matters",
+    body: "Treat app links and universal links as production-critical. A broken handoff means the task cannot start or complete correctly.",
+  },
+  {
+    title: "Design the task for interruption",
+    body: "Users arrive in your app because TaskGate interrupted another action. Keep the mini-task focused, short, and obvious to finish.",
+  },
+  {
+    title: "Plan for approval readiness",
+    body: "Your config, icon assets, redirect behavior, and task completion flow should be stable before requesting production rollout.",
+  },
+];
+
+function SectionLabel({ children }) {
+  return (
+    <p className="text-[11px] font-semibold uppercase tracking-widest text-white/30">
+      {children}
+    </p>
+  );
+}
+
+function Tag({ children, tone = "default" }) {
+  const tones = {
+    default: "text-accent bg-accent/10 border-accent/20",
+    muted: "text-white/55 bg-white/[0.05] border-white/[0.08]",
+  };
+
+  return (
+    <span
+      className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest ${tones[tone]}`}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ResourceLink({ href, external, className, children }) {
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
+
+function HeroCard({ item }) {
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <ResourceLink
+        href={item.href}
+        external={item.external}
+        className="group relative flex flex-col gap-5 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/[0.10] via-accent/[0.05] to-transparent p-7 transition-all duration-300 hover:border-accent/50 hover:from-accent/[0.14]"
+      >
+        <div className="pointer-events-none absolute -left-10 -top-10 h-48 w-48 rounded-full bg-accent/10 blur-3xl" />
+
+        <div className="relative flex items-start gap-4">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-accent/30 bg-accent/15 text-accent">
+            <Icon className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="mb-2.5 flex flex-wrap items-center gap-2">
+              <Tag>{item.tag}</Tag>
+              <span className="text-[11px] text-white/30">{item.meta}</span>
+            </div>
+            <h2 className="mb-2.5 text-xl font-bold leading-snug text-white transition-colors group-hover:text-white/90">
+              {item.title}
+            </h2>
+            <p className="max-w-lg text-sm leading-relaxed text-white/55">
+              {item.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="relative flex items-center gap-1.5 text-sm font-medium text-accent">
+          Open resource
+          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        </div>
+      </ResourceLink>
+    </motion.div>
+  );
+}
+
+function SmallCard({ item, index }) {
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      custom={index}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        duration: 0.35,
+        delay: index * 0.07,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+    >
+      <ResourceLink
+        href={item.href}
+        external={item.external}
+        className="group flex h-full items-start gap-4 rounded-xl border border-white/[0.08] bg-white/[0.025] p-4 transition-all duration-200 hover:border-white/[0.15] hover:bg-white/[0.05]"
+      >
+        <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.06] text-white/50 transition-colors group-hover:text-white/80">
+          <Icon className="h-4 w-4" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+            <Tag tone="muted">{item.tag}</Tag>
+            <span className="text-[11px] text-white/25">{item.meta}</span>
+          </div>
+          <h3 className="mb-1 text-sm font-semibold leading-snug text-white/80 transition-colors group-hover:text-white">
+            {item.title}
+          </h3>
+          <p className="text-[12px] leading-relaxed text-white/40">
+            {item.description}
+          </p>
+        </div>
+        {item.external ? (
+          <ExternalLink className="mt-1 hidden h-4 w-4 flex-shrink-0 text-white/20 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-white/50 sm:block" />
+        ) : (
+          <ChevronRight className="mt-1 hidden h-4 w-4 flex-shrink-0 text-white/20 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-white/50 sm:block" />
+        )}
+      </ResourceLink>
+    </motion.div>
+  );
+}
+
 export default function DevelopersContent() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeAnchor, setActiveAnchor] = useState(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const observers = [];
+
+    pageAnchors.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveAnchor(id);
+          }
+        },
+        { rootMargin: "-20% 0px -70% 0px" }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, []);
+
   return (
-    <>
-      {/* Hero Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="relative bg-black pt-32 pb-16 overflow-hidden"
-      >
-        <div className="relative z-20 max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-gradient-to-r from-accent/10 to-purple-600/10 border border-accent/30">
-              <Code2 className="w-4 h-4 text-accent" />
-              <span className="bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent font-medium text-sm">
-                Developer Resources
-              </span>
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
-              Build with{" "}
-              <span className="bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent">
-                TaskGate
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Integrate TaskGate into your apps with our official SDKs.
-              Available for Flutter, iOS, and Android.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="https://github.com/task-gate"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="px-8 py-4 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity shadow-lg hover:shadow-xl flex items-center gap-2">
-                  <SiGithub className="w-5 h-5" />
-                  View on GitHub
-                </button>
-              </a>
-              <Link href="/contact-us?interest=developer">
-                <button className="px-8 py-4 rounded-lg bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold hover:bg-white/20 transition-all duration-300">
-                  Get Developer Support
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* SDKs Section - WHITE */}
-      <section className="bg-white py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Provider ID Notice */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 bg-gradient-to-r from-accent/5 to-purple-600/5 border border-accent/20 rounded-2xl p-8 text-center"
-          >
+    <div className="min-h-screen bg-black pb-28 pt-24 text-white antialiased">
+      <div className="mx-auto flex max-w-7xl px-4 sm:px-6 lg:px-8">
+        <aside className="hidden w-56 flex-shrink-0 self-start pt-10 lg:flex">
+          <div className="sticky top-28 flex max-h-[calc(100vh-8.5rem)] flex-col gap-7 overflow-y-auto pr-1">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Get Started in Minutes
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Register on our Partner Portal to instantly create your{" "}
-                <code className="bg-gray-200 px-2 py-1 rounded text-accent font-mono text-sm">
-                  providerId
-                </code>
-                , configure your integration, and start building. Submit for
-                approval when you&apos;re ready for production.
-              </p>
-              <Link href="/partner">
-                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity">
-                  Open Partner Portal
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Official SDKs
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Choose the SDK that fits your platform and start integrating
-              TaskGate today.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {sdks.map((sdk, index) => (
-              <motion.div
-                key={sdk.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-gray-50 rounded-3xl p-8 border border-gray-200 hover:border-accent/50 hover:shadow-lg transition-all duration-300 group"
-              >
-                <div className="flex items-start justify-between mb-6">
-                  {getSdkIcon(sdk.iconType)}
-                  <span
-                    className={`px-3 py-1 rounded-full bg-gradient-to-r ${sdk.badgeColor} text-white text-xs font-medium`}
-                  >
-                    {sdk.badge}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {sdk.name}
-                </h3>
-                <p className="text-accent text-sm mb-4">{sdk.platform}</p>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {sdk.description}
-                </p>
-
-                {/* Install Command */}
-                <div className="bg-gray-900 rounded-lg p-3 mb-6">
-                  <code className="text-sm text-gray-300 break-all">
-                    {sdk.installCommand}
-                  </code>
-                </div>
-
-                <a
-                  href={sdk.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-accent hover:text-purple-600 transition-colors group-hover:gap-3 duration-300"
-                >
-                  {sdk.linkText}
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Integration Steps Section - BLACK */}
-      <section className="bg-black py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              How to Integrate with TaskGate
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Follow these steps to become a TaskGate partner app and reach
-              users building better digital habits.
-            </p>
-          </motion.div>
-
-          <div className="space-y-6">
-            {integrationSteps.map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="flex gap-6 items-start bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-accent/30 transition-all duration-300"
-              >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-accent to-purple-600 flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-lg">
-                    {item.step}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Deep Link Setup Section */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Deep Link Setup by Platform
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Configure your app to receive task requests from TaskGate using
-              platform-specific deep linking.
-            </p>
-          </motion.div>
-
-          <div className="space-y-12">
-            {/* iOS */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                {getSdkIcon("ios")}
-                <h3 className="text-2xl font-bold text-gray-900">iOS</h3>
+              <div className="mb-3 flex items-center gap-2 px-2">
+                <Link2 className="h-3.5 w-3.5 text-white/30" />
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-white/30">
+                  Docs
+                </span>
               </div>
-              <div className="space-y-8">
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-500 font-bold">✓</span>
-                    <p className="font-semibold text-gray-900 text-lg">
-                      URL Scheme{" "}
-                      <span className="text-sm text-gray-500 font-normal">
-                        (required for install detection)
-                      </span>
-                    </p>
-                  </div>
-                  <CodeBlock
-                    language="xml"
-                    code={`<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>yourapp</string>
-    </array>
-  </dict>
-</array>`}
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-500 font-bold">✓</span>
-                    <p className="font-semibold text-gray-900 text-lg">
-                      Universal Links{" "}
-                      <span className="text-sm text-gray-500 font-normal">
-                        (required for launching task)
-                      </span>
-                    </p>
-                  </div>
-                  <CodeBlock
-                    language="bash"
-                    code={`# In Xcode → Signing & Capabilities:
-+ Associated Domains → applinks:yourdomain.com`}
-                  />
-                  <p className="mt-4 text-sm text-gray-600">
-                    Verify your apple-app-site-association:{" "}
-                    <a
-                      href="https://getuniversal.link/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent hover:underline font-medium"
-                    >
-                      getuniversal.link
-                    </a>
-                  </p>
-                  <p className="mt-2 text-sm text-gray-600">
-                    Flutter docs:{" "}
-                    <a
-                      href="https://docs.flutter.dev/cookbook/navigation/set-up-universal-links"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent hover:underline font-medium"
-                    >
-                      Set up Universal Links
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Android */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                {getSdkIcon("android")}
-                <h3 className="text-2xl font-bold text-gray-900">Android</h3>
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-green-500 font-bold">✓</span>
-                  <p className="font-semibold text-gray-900 text-lg">
-                    App Links{" "}
-                    <span className="text-sm text-gray-500 font-normal">
-                      (required for launching task)
-                    </span>
-                  </p>
-                </div>
-                <CodeBlock
-                  language="xml"
-                  code={`<intent-filter android:autoVerify="true">
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data 
-        android:scheme="https"
-        android:host="yourdomain.com"
-        android:pathPrefix="/taskgate" />
-</intent-filter>`}
-                />
-                <p className="mt-4 text-sm text-gray-600">
-                  Flutter docs:{" "}
+              <ul className="space-y-0.5">
+                <li>
                   <a
-                    href="https://docs.flutter.dev/cookbook/navigation/set-up-app-links"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent hover:underline font-medium"
+                    href="#top"
+                    className="flex items-center gap-2 rounded-lg bg-white/[0.06] px-2 py-2 text-sm font-medium text-white transition-all duration-150"
                   >
-                    Set up App Links
+                    <span className="h-1 w-1 flex-shrink-0 rounded-full bg-accent" />
+                    Overview
                   </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="border-t border-white/[0.06] pt-5">
+              <p className="mb-3 px-2 text-[11px] font-semibold uppercase tracking-widest text-white/30">
+                On this page
+              </p>
+              <ul className="ml-2 space-y-0.5 border-l border-white/[0.07]">
+                {pageAnchors.map((item) => {
+                  const active = activeAnchor === item.id;
+
+                  return (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className={`-ml-px block border-l-2 py-1.5 pl-3 pr-2 text-[13px] transition-all duration-150 ${
+                          active
+                            ? "border-accent text-white"
+                            : "border-transparent text-white/30 hover:text-white/70"
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="border-t border-white/[0.06] pt-5">
+              <Link
+                href="/partner"
+                className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-white/30 transition-all duration-150 hover:bg-white/[0.03] hover:text-white/70"
+              >
+                <Rocket className="h-3.5 w-3.5 flex-shrink-0" />
+                Open Partner Portal
+              </Link>
+            </div>
+          </div>
+        </aside>
+
+        <div className="fixed left-0 right-0 top-[80px] z-30 border-b border-white/[0.06] bg-black/90 px-4 backdrop-blur-xl lg:hidden">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen((open) => !open)}
+            className="flex items-center gap-2 py-3 text-sm text-white/60 transition-colors hover:text-white"
+            aria-expanded={sidebarOpen}
+          >
+            {sidebarOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            <span>Docs</span>
+            <ChevronRight
+              className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                sidebarOpen ? "rotate-90" : ""
+              }`}
+            />
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {sidebarOpen && (
+            <motion.div
+              className="fixed left-4 right-4 top-[122px] z-40 overflow-hidden rounded-xl border border-white/[0.08] bg-[#0d0d0d] shadow-2xl lg:hidden"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
+              <div className="max-h-[70vh] overflow-y-auto p-3">
+                <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                  Docs
                 </p>
-                <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <p className="font-semibold text-gray-900 mb-2">
-                    Verify in Play Console:
-                  </p>
-                  <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
-                    <li>Go to Play Console → Grow users → Deep links</li>
-                    <li>
-                      Check that your domain shows &quot;Deep linked&quot;
-                      status
-                    </li>
-                    <li>
-                      Ensure assetlinks.json is properly hosted at your domain
-                    </li>
-                  </ol>
-                </div>
+                <a
+                  href="#top"
+                  onClick={() => setSidebarOpen(false)}
+                  className="flex items-center gap-2 rounded-lg bg-white/[0.07] px-3 py-2.5 text-sm font-medium text-white transition-colors"
+                >
+                  <span className="h-1 w-1 flex-shrink-0 rounded-full bg-accent" />
+                  Overview
+                </a>
+
+                <div className="my-2 border-t border-white/[0.06]" />
+                <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                  On this page
+                </p>
+                {pageAnchors.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={() => setSidebarOpen(false)}
+                    className="block rounded-lg px-3 py-2 text-sm text-white/45 transition-colors hover:bg-white/[0.04] hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+
+                <div className="my-2 border-t border-white/[0.06]" />
+                <Link
+                  href="/partner"
+                  onClick={() => setSidebarOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-white/40 transition-colors hover:bg-white/[0.04] hover:text-white"
+                >
+                  <Rocket className="h-3.5 w-3.5" />
+                  Open Partner Portal
+                </Link>
               </div>
             </motion.div>
-          </div>
+          )}
+        </AnimatePresence>
 
-          {/* Help with Deep Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-12 text-center"
+        <main className="mt-0 min-w-0 flex-1 overflow-x-auto border-white/[0.06] pt-[4.75rem] sm:pt-16 lg:border-l lg:pl-12 lg:pt-10">
+          <article
+            id="top"
+            className="flex w-full max-w-3xl flex-col gap-12"
           >
-            <p className="text-gray-600">
-              Need help setting up App Links or Universal Links?{" "}
-              <a
-                href="/contact-us?interest=developer"
-                className="text-accent hover:underline font-medium"
-              >
-                Contact developer support
-              </a>
-            </p>
-          </motion.div>
-        </div>
-      </section>
+            <nav className="text-xs text-white/30" aria-label="Breadcrumb">
+              <ol className="flex flex-wrap gap-x-2 gap-y-1">
+                <li>
+                  <Link href="/" className="transition-colors hover:text-white/60">
+                    Home
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li className="text-white/50">Docs</li>
+              </ol>
+            </nav>
 
-      {/* CTA Section - WHITE */}
-      <section className="bg-white py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Ready to Get Started?
-            </h2>
-            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              Create your partner account, configure your integration, and start
-              building today. No approval needed to begin development.
+            <motion.header
+              className="flex flex-col gap-3"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-white/30">
+                Docs
+              </p>
+              <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+                Build TaskGate integrations with a cleaner launch path
+              </h1>
+              <p className="max-w-[560px] text-base leading-relaxed text-white/50 sm:text-lg">
+                Use the Partner Portal, platform SDKs, and launch checklist to
+                ship a TaskGate-ready experience without copying a generic app
+                integration flow.
+              </p>
+            </motion.header>
+
+            <section id="quick-links" className="scroll-mt-28 flex flex-col gap-3">
+              <SectionLabel>Featured</SectionLabel>
+              <HeroCard item={featuredResource} />
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <SectionLabel>Guides</SectionLabel>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {guides.map((item, index) => (
+                  <SmallCard key={item.title} item={item} index={index} />
+                ))}
+              </div>
+            </section>
+
+            <section id="integration-workflow" className="scroll-mt-28 flex flex-col gap-4">
+              <SectionLabel>Workflow</SectionLabel>
+              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6">
+                <div className="space-y-5">
+                  {workflowSteps.map((step, index) => (
+                    <div
+                      key={step.title}
+                      className="flex items-start gap-4 border-b border-white/[0.06] pb-5 last:border-b-0 last:pb-0"
+                    >
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-sm font-semibold text-accent">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h2 className="mb-1.5 text-lg font-semibold text-white">
+                          {step.title}
+                        </h2>
+                        <p className="text-sm leading-relaxed text-white/55">
+                          {step.body}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section id="sdk-library" className="scroll-mt-28 flex flex-col gap-3">
+              <SectionLabel>SDK Library</SectionLabel>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {sdkResources.map((item, index) => (
+                  <SmallCard key={item.title} item={item} index={index} />
+                ))}
+              </div>
+            </section>
+
+            <section id="implementation-notes" className="scroll-mt-28 flex flex-col gap-4">
+              <SectionLabel>Implementation Notes</SectionLabel>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {implementationNotes.map((note) => (
+                  <div
+                    key={note.title}
+                    className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-5"
+                  >
+                    <h3 className="mb-2 text-sm font-semibold text-white">
+                      {note.title}
+                    </h3>
+                    <p className="text-[13px] leading-relaxed text-white/45">
+                      {note.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section id="launch-support" className="scroll-mt-28 flex flex-col gap-3">
+              <SectionLabel>Also Useful</SectionLabel>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {related.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="group flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3 transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.05]"
+                    >
+                      <Icon className="h-4 w-4 flex-shrink-0 text-white/30 transition-colors group-hover:text-white/60" />
+                      <span className="text-sm text-white/50 transition-colors group-hover:text-white/80">
+                        {item.label}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+
+            <p className="border-t border-white/[0.06] pt-6 text-[13px] text-white/25">
+              Built for TaskGate partners who need a simple path from SDK setup
+              to production approval.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/partner">
-                <button className="px-8 py-4 rounded-lg bg-gradient-to-r from-accent to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity flex items-center gap-2 justify-center w-full sm:w-auto">
-                  <Terminal className="w-5 h-5" />
-                  Open Partner Portal
-                </button>
-              </Link>
-              <a
-                href="https://pub.dev/packages/taskgate_sdk"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="px-8 py-4 rounded-lg bg-gray-900 text-white font-semibold hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 justify-center w-full sm:w-auto">
-                  <Package className="w-5 h-5" />
-                  View Flutter SDK
-                </button>
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </>
+          </article>
+        </main>
+      </div>
+    </div>
   );
 }

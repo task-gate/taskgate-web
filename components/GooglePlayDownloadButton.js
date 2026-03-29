@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import Image from "next/image"; // If using Next.js
+import Image from "next/image";
 
 const GooglePlayDownloadButton = () => {
   const androidUrl =
@@ -15,23 +17,19 @@ const GooglePlayDownloadButton = () => {
         ReactPixel.trackCustom("GOOGLE_PLAY_Click", {
           button_name: "Google Play",
         });
-        console.log("Google Play button clicked");
       });
     }
 
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
     if (/android/i.test(userAgent)) {
-      // Open Google Play Store in a new tab
       window.open(
         `https://play.google.com/store/apps/details?id=${androidPackageName}`,
         "_blank"
       );
     } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      // Open Apple App Store in a new tab
       window.open(`https://apps.apple.com/app/id${iosAppId}`, "_blank");
     } else {
-      // Fallback to a landing page or website
       window.open(androidUrl, "_blank");
     }
   };
@@ -40,13 +38,14 @@ const GooglePlayDownloadButton = () => {
     <button
       onClick={handleClick}
       style={{ border: "none", background: "none", padding: 0 }}
+      type="button"
     >
       <Image
         src="/buttons/google-play-badge.png"
         alt="Get it on Google Play"
         className="w-[150px] h-[45px]"
-        width={150} // Adjust width as needed
-        height={50} // Adjust height as needed
+        width={150}
+        height={50}
       />
     </button>
   );

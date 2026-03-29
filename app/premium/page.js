@@ -1,14 +1,19 @@
 import PremiumContent from "@/components/PremiumContent";
+import faqsPremium from "@/components/data/faqsPremium";
+import { faqPageSchema } from "@/lib/faqJsonLd";
+
+const faqLd = faqPageSchema(faqsPremium);
 
 export const metadata = {
-  title: "Premium | TaskGate — Unlock Advanced Features",
+  title: "Premium | TaskGate — Advanced Analytics & Integrations",
   description:
-    "Upgrade to TaskGate Premium for advanced features, deeper insights, powerful visualization tools, and exclusive content to accelerate your digital wellness journey.",
+    "TaskGate Premium adds advanced usage analytics, unlimited partner integrations, custom tasks, and scheduled gating so friction fits your real routine.",
   keywords: [
     "TaskGate Premium",
     "premium features",
     "subscription",
-    "advanced tools",
+    "advanced analytics",
+    "scheduled gating",
     "digital wellness",
     "habit building premium",
   ],
@@ -16,31 +21,30 @@ export const metadata = {
     canonical: "/premium",
   },
   openGraph: {
-    title: "Premium | TaskGate — Unlock Advanced Features",
+    title: "Premium | TaskGate — Advanced Analytics & Integrations",
     description:
-      "Upgrade to TaskGate Premium for advanced features, deeper insights, and exclusive content to accelerate your digital wellness journey.",
+      "Advanced analytics, partner integrations, custom tasks, and scheduled gating with TaskGate Premium.",
     url: "https://taskgate.co/premium",
     siteName: "TaskGate",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "TaskGate — Premium",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Premium | TaskGate — Unlock Advanced Features",
+    title: "Premium | TaskGate — Advanced Analytics & Integrations",
     description:
-      "Upgrade to TaskGate Premium for advanced features and exclusive content.",
-    images: ["/og.png"],
+      "Advanced analytics, integrations, and scheduled gating with TaskGate Premium.",
   },
 };
 
 export default function PremiumPage() {
-  return <PremiumContent />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <PremiumContent />
+    </>
+  );
 }

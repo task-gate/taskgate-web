@@ -7,7 +7,7 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xs: "400px",
+      xs: "375px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
@@ -16,10 +16,11 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        tiempos: ["TiemposFine-Regular", "serif"],
-        tiemposBold: ["TiemposFine-Semibold", "serif"],
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        tiempos: ["Tiempos Fine", "serif"],
+        tiemposBold: ["Tiempos Fine", "serif"],
         ubuntu: ["Ubuntu", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
       },
       colors: {
         bg: "#ffffff",

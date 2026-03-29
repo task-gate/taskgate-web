@@ -14,11 +14,9 @@ export const MetaPixelEvents = () => {
         if (!window.fbqInitialized) {
           ReactPixel.init(process.env.NEXT_PUBLIC_META_PIXEL_ID);
           window.fbqInitialized = true;
-          console.log("Meta Pixel Initialized ✅");
         }
 
         ReactPixel.pageView();
-        console.log(`Meta Pixel Event: PageView triggered for ${pathname}`);
 
         // ✅ Track "ViewContent" for key pages dynamically
         const trackedPages = ["/features", "/premium", "/about-us", "/updates"];
@@ -27,33 +25,30 @@ export const MetaPixelEvents = () => {
           ReactPixel.track("ViewContent", {
             content_name: pathname.replace("/", "").toUpperCase() + " Page",
           });
-
-          console.log(`Meta Pixel Event: ViewContent triggered on ${pathname}`);
         }
 
         // ✅ Track Scroll Depth 50%
         const handleScroll = () => {
-          const scrollY = window.scrollY;
-          const pageHeight = document.body.scrollHeight;
-          const windowHeight = window.innerHeight;
+          requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            const pageHeight = document.body.scrollHeight;
+            const windowHeight = window.innerHeight;
 
-          const scrollPercentage =
-            (scrollY / (pageHeight - windowHeight)) * 100;
+            const scrollPercentage =
+              (scrollY / (pageHeight - windowHeight)) * 100;
 
-          if (scrollPercentage > 50) {
-            ReactPixel.trackCustom("ScrollDepth50", {
-              content_name: "50% Page Scroll",
-              page: pathname,
-            });
+            if (scrollPercentage > 50) {
+              ReactPixel.trackCustom("ScrollDepth50", {
+                content_name: "50% Page Scroll",
+                page: pathname,
+              });
 
-            console.log("Meta Pixel Event: ScrollDepth50 triggered");
-
-            // Remove event listener after firing event once
-            window.removeEventListener("scroll", handleScroll);
-          }
+              window.removeEventListener("scroll", handleScroll);
+            }
+          });
         };
 
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
         // ✅ Track Time on Page (fires after 30 seconds)
         const timeOnPageTimeout = setTimeout(() => {
@@ -61,9 +56,7 @@ export const MetaPixelEvents = () => {
             time_spent: "30 seconds",
             page: pathname,
           });
-
-          console.log("Meta Pixel Event: TimeOnPage triggered");
-        }, 30000); // Fires after 30 seconds
+        }, 30000);
 
         return () => {
           window.removeEventListener("scroll", handleScroll);

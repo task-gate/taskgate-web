@@ -1,3 +1,4 @@
+/* Modular `firebase/*` imports keep tree-shaking effective vs `import firebase from "firebase/app"`. */
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";

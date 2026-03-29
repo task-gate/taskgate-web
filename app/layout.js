@@ -1,5 +1,8 @@
 import "./globals.css";
+import { Inter } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 // ✅ Export metadata for SEO - this runs on the server
 export const metadata = {
@@ -28,14 +31,6 @@ export const metadata = {
       "Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration.",
     url: "https://taskgate.co",
     siteName: "TaskGate",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "TaskGate — Design Your Digital Habits",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -45,7 +40,6 @@ export const metadata = {
     description:
       "Break impulsive scrolling habits. TaskGate intercepts app opens and requires a mini-task before access. Supports partner app integration.",
     site: "@TaskGateApp",
-    images: ["/og.png"],
   },
   icons: {
     icon: [
@@ -81,29 +75,67 @@ export const metadata = {
   },
 };
 
-// ✅ Structured data for Google rich results
-const jsonLd = {
+const logoUrl = "https://taskgate.co/favicon/android-chrome-512x512.png";
+
+const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "TaskGate",
   url: "https://taskgate.co",
-  logo: "https://taskgate.co/favicon/android-chrome-512x512.png",
-  sameAs: [],
+  logo: {
+    "@type": "ImageObject",
+    url: logoUrl,
+    width: 512,
+    height: 512,
+  },
+  sameAs: [
+    "https://apps.apple.com/app/id6755723338",
+    "https://play.google.com/store/apps/details?id=com.tkg.taskgate",
+    "https://twitter.com/TaskGateApp",
+  ],
   description:
     "TaskGate prevents impulsive app opens by requiring you to complete a quick task first.",
 };
 
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "TaskGate",
+  url: "https://taskgate.co",
+  publisher: {
+    "@type": "Organization",
+    name: "TaskGate",
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+      width: 512,
+      height: 512,
+    },
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
+        <link
+          rel="preload"
+          href="/fonts/TiemposFine-Regular.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
       </head>
       <body
-        className="text-gray-900 min-h-screen flex flex-col bg-black"
+        className={`${inter.className} text-gray-900 min-h-screen flex flex-col bg-black`}
         suppressHydrationWarning
       >
         <LayoutClient>{children}</LayoutClient>

@@ -1,133 +1,92 @@
 "use client";
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Reviews from "./data/reviews";
-import Autoplay from "embla-carousel-autoplay";
-import EmblaCarousel from "embla-carousel-react";
-import { FaQuoteLeft } from "react-icons/fa6";
+import { Quote } from "lucide-react";
 
 const Testimonial = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [emblaRef, emblaApi] = EmblaCarousel(
-    {
-      loop: true,
-      draggable: true,
-      align: "center",
-      containScroll: "trimSnaps",
-      slidesToScroll: isMobile ? 1 : 2,
-    },
-    [Autoplay()]
-  );
-
-  const slidesPerPage = isMobile ? 1 : 2;
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (emblaApi) {
-      const handleSelect = () => {
-        setActiveIndex(emblaApi.selectedScrollSnap());
-      };
-
-      emblaApi.on("select", handleSelect);
-      return () => emblaApi.off("select", handleSelect);
-    }
-  }, [emblaApi]);
-
-  const numberOfDots = Math.ceil(Reviews.length / slidesPerPage);
-
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.8 } }}
-      className="relative z-10 w-full bg-transparent text-white"
-    >
-      <article className="container mx-auto bg-transparent relative py-14 p-4 px-5 md:px-[5%] 2xl:px-0 max-w-[1200px] flex flex-col items-center justify-center gap-4">
-        <div className="flex flex-col items-center justify-center">
-          <p className="text-sm text-gray-500 mb-2">What We Expect to Hear</p>
-          <h2 className="text-h2 lg:text-h3 font-bold text-center max-w-[80%]">
-            Expected User Feedback
-          </h2>
-          <span className="w-16 h-1 mt-3 bg-gradient-to-r from-accent to-purple-600 rounded-full" />
-
-          <article className="flex flex-col items-center justify-center mt-10">
-            <p className="mt-5 text-center max-w-[80%] lg:max-w-[60%] lg:leading-8">
-              Here&apos;s the kind of experience we&apos;re building TaskGate to
-              deliver. Real user testimonials coming soon!
-            </p>
-          </article>
+    <section className="relative z-10 w-full bg-white py-20 overflow-hidden">
+      <div className="container mx-auto px-5 md:px-[5%] 2xl:px-0 max-w-[1200px]">
+        <div
+          className="mb-10 rounded-2xl border-2 border-amber-400/80 bg-amber-50 px-5 py-5 shadow-sm md:px-8 md:py-6"
+          role="note"
+          aria-label="Disclaimer"
+        >
+          <p className="text-center text-sm font-bold uppercase tracking-wide text-amber-950">
+            Illustrative examples — not customer reviews
+          </p>
+          <p className="mt-2 text-center text-sm leading-relaxed text-amber-950/90">
+            The quotes below describe the experience we are designing TaskGate to
+            deliver. They are not testimonials from verified users or app store
+            ratings.
+          </p>
+        </div>
+        {/* Header */}
+        <div className="text-center mb-14">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-4"
+          >
+            Expected Feedback
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl md:text-4xl font-bold text-primary mb-4"
+          >
+            What Users Will Love
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-secondary text-sm max-w-sm mx-auto leading-relaxed"
+          >
+            Here&apos;s the kind of experience we&apos;re building TaskGate to
+            deliver. Real testimonials coming soon.
+          </motion.p>
         </div>
 
-        <div className="mt-4 bg-transparent w-full relative">
-          <motion.article
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="w-[100%] bg-transparent relative top-[3rem]"
-          >
-            <div className="relative w-full mb-20">
-              <div className="embla" ref={emblaRef}>
-                <div className="embla__container">
-                  {Reviews.map((review, index) => (
-                    <div
-                      key={index}
-                      className="embla__slide px-4 md:max-w-[60%]"
-                    >
-                      <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl py-12 px-5 shadow-xl hover:bg-white/15 hover:border-purple-400/40 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative items-center flex flex-col gap-6 h-full">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-accent to-purple-600 flex items-center justify-center">
-                          <FaQuoteLeft className="text-white text-lg" />
-                        </div>
-                        <p className="text-white/90 leading-relaxed text-center font-medium">
-                          {review.desc}
-                        </p>
-                        <div className="flex items-center gap-4">
-                          <div className="flex gap-2 items-start">
-                            <h1 className="text-white font-extrabold text-[16px] leading-[24.55px]">
-                              {`- ${review.name},`}
-                            </h1>
-                            <span className="text-white/70 italic">
-                              {review.title}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {Reviews.map((review, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.07 }}
+              className="group bg-white border border-border rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-accent/25 transition-all duration-300"
+            >
+              <Quote className="w-5 h-5 text-accent/20 mb-4 group-hover:text-accent/40 transition-colors" />
+              <p className="text-primary text-sm leading-relaxed italic mb-6">
+                {review.desc}
+              </p>
+              <div className="flex items-center gap-3 pt-4 border-t border-border">
+                <div className="w-9 h-9 bg-gradient-to-br from-accent to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                  {review.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </div>
+                <div>
+                  <div className="font-semibold text-primary text-sm">
+                    {review.name}
+                  </div>
+                  <div className="text-xs text-secondary">{review.title}</div>
                 </div>
               </div>
-
-              <div className="absolute bottom-[-45px] pt-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
-                {Array.from({ length: numberOfDots }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => emblaApi && emblaApi.scrollTo(index)}
-                    className={`${
-                      activeIndex === index
-                        ? "bg-[#505050] w-4 h-2 rounded-full scale-125"
-                        : "bg-silver w-3 h-3 rounded-full opacity-60"
-                    } transition-all transform`}
-                    style={{
-                      transition:
-                        "transform 0.3s ease-in-out, background-color 0.3s ease",
-                    }}
-                  ></button>
-                ))}
-              </div>
-            </div>
-          </motion.article>
+            </motion.div>
+          ))}
         </div>
-      </article>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

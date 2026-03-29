@@ -1,4 +1,8 @@
 import AboutContent from "@/components/AboutContent";
+import faqsAbout from "@/components/data/faqsAbout";
+import { faqPageSchema } from "@/lib/faqJsonLd";
+
+const faqLd = faqPageSchema(faqsAbout);
 
 export const metadata = {
   title: "About Us | TaskGate — Design Your Digital Habits",
@@ -21,14 +25,6 @@ export const metadata = {
       "Learn about TaskGate's mission to help people build intentional relationships with technology through mindful app usage.",
     url: "https://taskgate.co/about-us",
     siteName: "TaskGate",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "TaskGate — About Us",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -37,10 +33,17 @@ export const metadata = {
     title: "About Us | TaskGate — Design Your Digital Habits",
     description:
       "Learn about TaskGate's mission to help people build intentional relationships with technology.",
-    images: ["/og.png"],
   },
 };
 
 export default function AboutPage() {
-  return <AboutContent />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <AboutContent />
+    </>
+  );
 }

@@ -1,6 +1,3 @@
-"use client";
-import { motion } from "framer-motion";
-
 const steps = [
   {
     number: "01",
@@ -34,111 +31,78 @@ const steps = [
   },
 ];
 
-const HowItWorks = () => {
+export default function HowItWorks() {
   return (
     <section className="relative z-10 w-full bg-white overflow-hidden">
-      <div className="container mx-auto py-20 px-5 md:px-[5%] 2xl:px-0 max-w-[1400px]">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+      {/* Gradient fade from the preceding dark section */}
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#080c14] to-white pointer-events-none z-10" />
+      <div className="container mx-auto py-24 px-5 md:px-[5%] 2xl:px-0 max-w-[1400px]">
+        <div className="text-center mb-16">
+          <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-5">
+            The Process
+          </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary">
             How TaskGate Works
           </h2>
-          <p className="text-secondary text-lg md:text-xl max-w-3xl mx-auto">
+          <p className="text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             Break the cycle of impulsive app opens with meaningful micro-tasks
           </p>
-        </motion.div>
+        </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Phone Mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center lg:justify-center"
-          >
-            <div className="relative mr-8 lg:mr-16">
-              {/* Phone video */}
-              <div className="relative">
-                <video
-                  src="/mock/demo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full max-w-[200px] lg:max-w-xs h-auto drop-shadow-lg rounded-3xl"
-                />
-              </div>
-            </div>
-          </motion.div>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="flex justify-center lg:justify-center">
+            <video
+              src="/mock/demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full max-w-[200px] lg:max-w-[240px] h-auto rounded-3xl shadow-2xl"
+            />
+          </div>
 
-          {/* Right: Steps */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
-              >
-                {/* Connector line (except for last item) */}
+              <div key={step.number} className="group relative">
                 {index < steps.length - 1 && (
-                  <div className="absolute left-5 top-14 w-0.5 h-10 bg-border"></div>
+                  <div className="absolute left-5 top-14 w-px h-3 bg-border" />
                 )}
 
-                {/* Step card */}
-                <div className="flex gap-4 p-5 rounded-lg bg-white border border-border hover:shadow-md transition-all duration-300">
-                  {/* Number circle */}
+                <div className="flex gap-4 p-5 rounded-xl bg-white border border-border hover:border-accent/30 hover:shadow-sm transition-all duration-300">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-accent to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
-                      {step.number}
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center shadow-sm">
+                      <span className="text-white font-semibold text-xs">
+                        {step.number}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold mb-1 text-primary">
+                  <div className="flex-1 pt-0.5">
+                    <h3 className="text-sm font-semibold mb-1 text-primary">
                       {step.title}
                     </h3>
-                    <p className="text-secondary text-sm leading-relaxed">
+                    <p className="text-secondary text-xs leading-relaxed">
                       {step.description}
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom Feature Highlight */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-block bg-gradient-to-r from-accent/5 to-purple-600/5 border border-accent/20 rounded-lg px-8 py-4">
-            <p className="text-primary text-base">
+        <div className="mt-16 text-center">
+          <div className="inline-block bg-gradient-to-r from-accent/5 to-purple-600/5 border border-accent/15 rounded-xl px-8 py-4">
+            <p className="text-primary text-sm">
               <span className="font-semibold text-accent">
                 Partner apps integrate seamlessly
               </span>{" "}
-              - TaskGate opens their mini-task via app link, and they redirect
-              back automatically when complete
+              — TaskGate opens their mini-task via app link, and they redirect
+              back automatically when complete.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default HowItWorks;
+}

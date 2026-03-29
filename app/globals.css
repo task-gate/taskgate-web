@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +8,6 @@
   --secondary-background: #f7f6f3;
   --border-color: #e9e9e7;
   --accent: #2383e2;
-  --font-inter: "Inter" sans-serif;
   --font-tiempos: "Tiempos Fine", serif;
 }
 
@@ -25,10 +22,17 @@
 }
 
 @font-face {
-  font-family: "Tiempos fine";
-  src: url("/fonts/TiemposFine-Regular.otf") format("opentype"),
-    url("/fonts/TiemposFine-Semibold.otf") format("opentype");
-  font-weight: normal;
+  font-family: "Tiempos Fine";
+  src: url("/fonts/TiemposFine-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tiempos Fine";
+  src: url("/fonts/TiemposFine-Semibold.otf") format("opentype");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -36,9 +40,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Inter", Helvetica, sans-serif;
   scroll-behavior: smooth;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .arc {
@@ -49,9 +52,6 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  body {
-    font-size: 1rem;
-  }
   .arc {
     background-size: 100% 40%;
     background-position: bottom;

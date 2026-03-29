@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import Testimonial from "@/components/Testimonial";
 import FaqsWhite from "@/components/FaqsWhite";
+import faqsPremium from "@/components/data/faqsPremium";
 import ReadyToStart from "@/components/Ready";
 import PricingPlans from "@/components/PricingPolicy";
 import AppStoreDownloadButton from "@/components/AppStoreDownloadButton";
@@ -32,7 +33,7 @@ export default function PremiumContent() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="text-white text-h2 md:max-w-[70%] lg:max-w-[100%] lg:text-h4 font-bold text-left"
             >
-              Unlock Advanced Manifestation Tools with TaskGate Premium
+              Go further with TaskGate Premium
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, scale: 1.25 }}
@@ -40,10 +41,9 @@ export default function PremiumContent() {
               transition={{ delay: 0.8, duration: 0.5 }}
               className="text-white max-w-[85%] md:max-w-[70%] lg:max-w-[100%] md:leading-8 text-left"
             >
-              TaskGate Premium amplifies your manifestation practice with
-              advanced features designed to accelerate your Law of Attraction
-              journey. Access deeper insights, powerful visualization tools, and
-              exclusive content to attract your desires faster.
+              Premium unlocks advanced usage analytics, unlimited partner app
+              integrations, custom tasks, and scheduled gating so friction matches
+              your real routine—not a one-size-fits-all block.
             </motion.p>
 
             <div className="mt-8 flex space-x-4">
@@ -69,7 +69,7 @@ export default function PremiumContent() {
       <PricingPlans />
       <ReadyToStart />
       <Testimonial />
-      <FaqsWhite />
+      <FaqsWhite items={faqsPremium} heading="Premium & billing" />
     </>
   );
 }
